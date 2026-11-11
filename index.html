@@ -3,251 +3,80 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PromptBazar.in — India’s #1 AI Video & Reel Prompt Library</title>
-  <!-- Tailwind CSS -->
+  <title>PromptBazar.in — India’s #1 AI Video & Reel Prompt Bookstore</title>
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Fast Cloudflare CDN for React 18 & Babel (Never Blocked on Indian Networks) -->
+  <!-- React 18 & ReactDOM 18 UMD (Fast & Reliable) -->
   <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
   <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <!-- Babel Standalone for JSX -->
   <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
-  <style>
-    body {
-      background-color: #F8FAFC;
-      color: #0F172A;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-  </style>
 </head>
-<body>
+<body class="bg-[#F8FAFC] text-slate-900 antialiased selection:bg-rose-600 selection:text-white">
   <div id="root"></div>
 
   <script type="text/babel">
     const { useState, useEffect, useMemo } = React;
 
     // ==========================================
-    // BUILT-IN LUCIDE ICONS (ZERO EXTERNAL FAILURE)
+    // BUILT-IN SVG ICONS (ZERO EXTERNAL FAILURE)
     // ==========================================
     const Icon = ({ className = "w-4 h-4", children }) => (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className={className}
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
         {children}
       </svg>
     );
 
-    const Sparkles = (p) => (
-      <Icon {...p}>
-        <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z" />
-      </Icon>
-    );
-    const BookOpen = (p) => (
-      <Icon {...p}>
-        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
-        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
-      </Icon>
-    );
-    const Download = (p) => (
-      <Icon {...p}>
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-        <polyline points="7 10 12 15 17 10" />
-        <line x1="12" y1="15" x2="12" y2="3" />
-      </Icon>
-    );
-    const CheckCircle2 = (p) => (
-      <Icon {...p}>
-        <circle cx="12" cy="12" r="10" />
-        <path d="m9 12 2 2 4-4" />
-      </Icon>
-    );
-    const Copy = (p) => (
-      <Icon {...p}>
-        <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
-        <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
-      </Icon>
-    );
-    const Check = (p) => (
-      <Icon {...p}>
-        <polyline points="20 6 9 17 4 12" />
-      </Icon>
-    );
-    const Eye = (p) => (
-      <Icon {...p}>
-        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-        <circle cx="12" cy="12" r="3" />
-      </Icon>
-    );
-    const Zap = (p) => (
-      <Icon {...p}>
-        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-      </Icon>
-    );
-    const ShieldCheck = (p) => (
-      <Icon {...p}>
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-        <path d="m9 12 2 2 4-4" />
-      </Icon>
-    );
-    const Star = (p) => (
-      <Icon {...p}>
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-      </Icon>
-    );
-    const ChevronDown = (p) => (
-      <Icon {...p}>
-        <path d="m6 9 6 6 6-6" />
-      </Icon>
-    );
-    const ChevronRight = (p) => (
-      <Icon {...p}>
-        <path d="m9 18 6-6-6-6" />
-      </Icon>
-    );
-    const Lock = (p) => (
-      <Icon {...p}>
-        <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
-        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-      </Icon>
-    );
-    const MessageCircle = (p) => (
-      <Icon {...p}>
-        <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" />
-      </Icon>
-    );
-    const Search = (p) => (
-      <Icon {...p}>
-        <circle cx="11" cy="11" r="8" />
-        <path d="m21 21-4.3-4.3" />
-      </Icon>
-    );
-    const X = (p) => (
-      <Icon {...p}>
-        <path d="M18 6 6 18" />
-        <path d="m6 6 12 12" />
-      </Icon>
-    );
-    const ArrowRight = (p) => (
-      <Icon {...p}>
-        <path d="M5 12h14" />
-        <path d="m12 5 7 7-7 7" />
-      </Icon>
-    );
-    const ArrowUpRight = (p) => (
-      <Icon {...p}>
-        <path d="M7 7h10v10" />
-        <path d="M7 17 17 7" />
-      </Icon>
-    );
-    const Award = (p) => (
-      <Icon {...p}>
-        <circle cx="12" cy="8" r="6" />
-        <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
-      </Icon>
-    );
-    const FileText = (p) => (
-      <Icon {...p}>
-        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-        <polyline points="14 2 14 8 20 8" />
-      </Icon>
-    );
-    const RefreshCw = (p) => (
-      <Icon {...p}>
-        <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
-        <path d="M21 3v5h-5" />
-        <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
-        <path d="M8 16H3v5" />
-      </Icon>
-    );
-    const BadgeCheck = (p) => (
-      <Icon {...p}>
-        <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
-        <path d="m9 12 2 2 4-4" />
-      </Icon>
-    );
-    const Upload = (p) => (
-      <Icon {...p}>
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-        <polyline points="17 8 12 3 7 8" />
-        <line x1="12" x2="12" y1="3" y2="15" />
-      </Icon>
-    );
-    const Layers = (p) => (
-      <Icon {...p}>
-        <polygon points="12 2 2 7 12 12 22 7 12 2" />
-        <polyline points="2 17 12 22 22 17" />
-        <polyline points="2 12 12 17 22 12" />
-      </Icon>
-    );
-    const CreditCard = (p) => (
-      <Icon {...p}>
-        <rect width="20" height="14" x="2" y="5" rx="2" />
-        <line x1="2" x2="22" y1="10" y2="10" />
-      </Icon>
-    );
+    const Sparkles = (p) => <Icon {...p}><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></Icon>;
+    const BookOpen = (p) => <Icon {...p}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></Icon>;
+    const Download = (p) => <Icon {...p}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></Icon>;
+    const CheckCircle2 = (p) => <Icon {...p}><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></Icon>;
+    const Copy = (p) => <Icon {...p}><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></Icon>;
+    const Check = (p) => <Icon {...p}><polyline points="20 6 9 17 4 12"/></Icon>;
+    const Eye = (p) => <Icon {...p}><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></Icon>;
+    const ShieldCheck = (p) => <Icon {...p}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></Icon>;
+    const Star = (p) => <Icon {...p}><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></Icon>;
+    const ChevronDown = (p) => <Icon {...p}><path d="m6 9 6 6 6-6"/></Icon>;
+    const ChevronRight = (p) => <Icon {...p}><path d="m9 18 6-6-6-6"/></Icon>;
+    const Lock = (p) => <Icon {...p}><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></Icon>;
+    const MessageCircle = (p) => <Icon {...p}><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></Icon>;
+    const Search = (p) => <Icon {...p}><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></Icon>;
+    const X = (p) => <Icon {...p}><path d="M18 6 6 18"/><path d="m6 6 12 12"/></Icon>;
+    const ArrowRight = (p) => <Icon {...p}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></Icon>;
+    const ArrowUpRight = (p) => <Icon {...p}><path d="M7 7h10v10"/><path d="M7 17 17 7"/></Icon>;
+    const FileText = (p) => <Icon {...p}><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></Icon>;
+    const RefreshCw = (p) => <Icon {...p}><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></Icon>;
+    const BadgeCheck = (p) => <Icon {...p}><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></Icon>;
+    const Upload = (p) => <Icon {...p}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></Icon>;
 
     // ==========================================
-    // SAFE LOCAL STORAGE HELPER
+    // LOCAL STORAGE HELPERS (PERSISTENT DATA)
     // ==========================================
-    const loadLocal = (key, fallback) => {
+    const loadSaved = (key, fallback) => {
       try {
-        const saved = localStorage.getItem('pb_ib_' + key);
-        return saved ? JSON.parse(saved) : fallback;
+        const item = localStorage.getItem('pb_store_' + key);
+        return item ? JSON.parse(item) : fallback;
       } catch (e) {
         return fallback;
       }
     };
 
-    const saveLocal = (key, value) => {
+    const saveSaved = (key, value) => {
       try {
-        localStorage.setItem('pb_ib_' + key, JSON.stringify(value));
+        localStorage.setItem('pb_store_' + key, JSON.stringify(value));
       } catch (e) {}
     };
 
     // ==========================================
-    // DATA: INITIAL CREATOR DISCOUNT COUPONS
+    // INITIAL DATA
     // ==========================================
     const INITIAL_COUPONS = [
-      {
-        code: 'REEL50',
-        discount: 50,
-        creatorHandle: 'ALL',
-        creatorName: 'PromptBazar Official',
-        uses: 142
-      },
-      {
-        code: 'ROHIT50',
-        discount: 50,
-        creatorHandle: 'rohit_aishorts',
-        creatorName: 'Rohit Sharma',
-        uses: 64
-      },
-      {
-        code: 'ANANYA30',
-        discount: 30,
-        creatorHandle: 'ananya_viralcat',
-        creatorName: 'Ananya Verma',
-        uses: 89
-      },
-      {
-        code: 'VIKRAM40',
-        discount: 40,
-        creatorHandle: 'vikram_mythology',
-        creatorName: 'Vikramaditya Singh',
-        uses: 37
-      }
+      { code: 'REEL50', discount: 50, creatorHandle: 'ALL', creatorName: 'PromptBazar Official', uses: 142 },
+      { code: 'ROHIT50', discount: 50, creatorHandle: 'rohit_aishorts', creatorName: 'Rohit Sharma', uses: 64 },
+      { code: 'ANANYA30', discount: 30, creatorHandle: 'ananya_viralcat', creatorName: 'Ananya Verma', uses: 89 },
+      { code: 'VIKRAM40', discount: 40, creatorHandle: 'vikram_mythology', creatorName: 'Vikramaditya Singh', uses: 37 }
     ];
 
-    // ==========================================
-    // DATA: VERIFIED SOCIAL CREATORS (WITH REAL AVATARS)
-    // ==========================================
     const INITIAL_CREATORS = [
       {
         id: 'creator-ananya',
@@ -256,10 +85,7 @@
         handle: 'ananya_viralcat',
         platform: 'Instagram Reels',
         followers: '185K Followers',
-        avatarUrl:
-          'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=240&q=80',
-        initials: 'AV',
-        accentBg: 'from-indigo-500 to-violet-600',
+        avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=240&q=80',
         upiId: 'ananyareels@ybl',
         splitRouteId: 'acc_RzpRoute_9042',
         email: 'ananya@promptbazar.in',
@@ -276,10 +102,7 @@
         handle: 'rohit_aishorts',
         platform: 'YouTube Shorts',
         followers: '420K Subscribers',
-        avatarUrl:
-          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=240&q=80',
-        initials: 'RS',
-        accentBg: 'from-emerald-500 to-teal-600',
+        avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=240&q=80',
         upiId: 'rohitstudio@okicici',
         splitRouteId: 'acc_RzpRoute_9041',
         email: 'rohit@promptbazar.in',
@@ -296,10 +119,7 @@
         handle: 'vikram_mythology',
         platform: 'YouTube & Facebook',
         followers: '610K Followers',
-        avatarUrl:
-          'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=240&q=80',
-        initials: 'VS',
-        accentBg: 'from-amber-500 to-orange-600',
+        avatarUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=240&q=80',
         upiId: 'vikramai@paytm',
         splitRouteId: 'acc_RzpRoute_9043',
         email: 'vikram@promptbazar.in',
@@ -311,21 +131,16 @@
       }
     ];
 
-    // ==========================================
-    // DATA: INITIAL PENDING PDF SUBMISSIONS
-    // ==========================================
     const INITIAL_PENDING_PDFS = [
       {
         id: 'pending-horror-pdf',
         creatorId: 'creator-vikram',
         creatorName: 'Vikramaditya Singh',
         creatorHandle: 'vikram_mythology',
-        creatorAvatar:
-          'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=240&q=80',
+        creatorAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=240&q=80',
         creatorPlatform: 'YT & FB • 610K',
         title: 'Indian Folklore & Midnight Mystery AI Shorts Prompt Book',
-        subtitle:
-          'Atmospheric 9:16 vertical prompts for suspense stories, ancient havelis, and cinematic thriller narratives.',
+        subtitle: 'Atmospheric 9:16 vertical prompts for suspense stories, ancient havelis, and cinematic thriller narratives.',
         category: 'mythology',
         badge: 'New Submission',
         pages: 112,
@@ -334,10 +149,7 @@
         mrp: 599,
         rating: 5.0,
         reviewsCount: '12',
-        coverImage:
-          'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
-        coverGradient: 'from-slate-800 via-indigo-950 to-slate-950',
-        spineColor: 'bg-indigo-500',
+        coverImage: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
         coverTag: 'THRILLER EDITION',
         uploadedFileName: '350_Folklore_Mystery_Prompts_Vikram.pdf',
         uploadedFileSize: '4.2 MB',
@@ -353,30 +165,23 @@
         samplePrompts: [
           {
             sceneTitle: 'Scene 01 — Deserted Heritage Railway Platform in Monsoon Fog',
-            imagePrompt:
-              '9:16 vertical cinematic frame, atmospheric thriller aesthetic, an old Indian heritage railway platform covered in dense midnight mist during monsoon rain, a single warm tungsten vintage lamp illuminating a wet wooden bench, shallow depth of field, ARRI Alexa 65mm, 8k --ar 9:16 --v 6.0',
-            videoMotionPrompt:
-              '[Kling 1.6 Motion]: Slow controlled dolly push-in toward the vintage lamp, raindrops splashing in 60fps slow motion on the wet stone platform, fog drifting gently across the frame.'
+            imagePrompt: '9:16 vertical cinematic frame, atmospheric thriller aesthetic, an old Indian heritage railway platform covered in dense midnight mist during monsoon rain, a single warm tungsten vintage lamp illuminating a wet wooden bench, shallow depth of field, ARRI Alexa 65mm, 8k --ar 9:16 --v 6.0',
+            videoMotionPrompt: '[Kling 1.6 Motion]: Slow controlled dolly push-in toward the vintage lamp, raindrops splashing in 60fps slow motion on the wet stone platform, fog drifting gently across the frame.'
           }
         ]
       }
     ];
 
-    // ==========================================
-    // DATA: DIGITAL PDF PROMPT BOOKS CATALOG
-    // ==========================================
     const PDF_PRODUCTS = [
       {
         id: 'cat-viral-pdf',
         creatorId: 'creator-ananya',
         creatorName: 'Ananya Verma',
         creatorHandle: 'ananya_viralcat',
-        creatorAvatar:
-          'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=240&q=80',
+        creatorAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=240&q=80',
         creatorPlatform: 'IG Reels • 185K',
         title: '500+ Viral AI Cat & Pet Storytelling Prompt Book',
-        subtitle:
-          'Complete 9:16 scene-by-scene prompt library for cute cat cooking, rescue arcs, and expressive pet reels.',
+        subtitle: 'Complete 9:16 scene-by-scene prompt library for cute cat cooking, rescue arcs, and expressive pet reels.',
         category: 'cat-stories',
         badge: 'Bestseller',
         pages: 128,
@@ -385,10 +190,7 @@
         mrp: 599,
         rating: 4.9,
         reviewsCount: '1.8k',
-        coverImage:
-          'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=800&q=80',
-        coverGradient: 'from-amber-900 via-slate-900 to-slate-950',
-        spineColor: 'bg-amber-400',
+        coverImage: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=800&q=80',
         coverTag: 'PET STORYTELLING',
         tools: ['Kling 1.6', 'Hailuo MiniMax', 'Midjourney v6', 'Leonardo AI'],
         chapters: [
@@ -402,17 +204,13 @@
         samplePrompts: [
           {
             sceneTitle: 'Scene 01 — Ginger Tabby Cat Preparing Masala Chai at Dusk',
-            imagePrompt:
-              '9:16 vertical aspect ratio, Pixar 3D animation style, ultra-detailed chubby orange tabby cat wearing a miniature white chef apron, standing at a rustic Indian street tea stall at rainy dusk, pouring steaming masala chai from a brass kettle into clay kulhad cups, warm golden tungsten rim lighting, expressive green eyes, Unreal Engine 5 render, 8k --ar 9:16 --v 6.0',
-            videoMotionPrompt:
-              '[Kling 1.6 / Hailuo Motion]: Slow cinematic push-in camera movement. The ginger cat tilts the brass kettle smoothly, hot tea pours with realistic steam rising, soft rain bokeh in the background, 60fps fluid motion.'
+            imagePrompt: '9:16 vertical aspect ratio, Pixar 3D animation style, ultra-detailed chubby orange tabby cat wearing a miniature white chef apron, standing at a rustic Indian street tea stall at rainy dusk, pouring steaming masala chai from a brass kettle into clay kulhad cups, warm golden tungsten rim lighting, expressive green eyes, Unreal Engine 5 render, 8k --ar 9:16 --v 6.0',
+            videoMotionPrompt: '[Kling 1.6 / Hailuo Motion]: Slow cinematic push-in camera movement. The ginger cat tilts the brass kettle smoothly, hot tea pours with realistic steam rising, soft rain bokeh in the background, 60fps fluid motion.'
           },
           {
             sceneTitle: 'Scene 02 — Shivering Kitten Outside Grand Gates (Emotional Hook)',
-            imagePrompt:
-              '9:16 vertical framing, Disney Pixar 3D render, a tiny white kitten holding a miniature bowl outside tall wrought-iron mansion gates during night rain, cold blue moonlight contrasting with warm amber window glow inside, detailed wet fur texture, shallow depth of field --ar 9:16',
-            videoMotionPrompt:
-              '[Runway Gen-3 / Kling Motion]: Low-angle close-up camera slowly tracking in on the kitten face as raindrops splash on cobblestones, subtle whisker movement and expressive eye blink.'
+            imagePrompt: '9:16 vertical framing, Disney Pixar 3D render, a tiny white kitten holding a miniature bowl outside tall wrought-iron mansion gates during night rain, cold blue moonlight contrasting with warm amber window glow inside, detailed wet fur texture, shallow depth of field --ar 9:16',
+            videoMotionPrompt: '[Runway Gen-3 / Kling Motion]: Low-angle close-up camera slowly tracking in on the kitten face as raindrops splash on cobblestones, subtle whisker movement and expressive eye blink.'
           }
         ]
       },
@@ -421,12 +219,10 @@
         creatorId: 'creator-rohit',
         creatorName: 'Rohit Sharma',
         creatorHandle: 'rohit_aishorts',
-        creatorAvatar:
-          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=240&q=80',
+        creatorAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=240&q=80',
         creatorPlatform: 'YT Shorts • 420K',
         title: '3D Pixar-Style Moral & Village Kahani Master Prompts',
-        subtitle:
-          'Production-ready prompts for Indian village moral stories, folk tales, and monetizable kids animation Shorts.',
+        subtitle: 'Production-ready prompts for Indian village moral stories, folk tales, and monetizable kids animation Shorts.',
         category: '3d-kahani',
         badge: 'Popular',
         pages: 164,
@@ -435,10 +231,7 @@
         mrp: 799,
         rating: 4.9,
         reviewsCount: '2.3k',
-        coverImage:
-          'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80',
-        coverGradient: 'from-emerald-950 via-slate-900 to-slate-950',
-        spineColor: 'bg-emerald-400',
+        coverImage: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80',
         coverTag: '3D MORAL STORIES',
         tools: ['Midjourney v6', 'Leonardo AI', 'Kling 1.6', 'ElevenLabs'],
         chapters: [
@@ -451,17 +244,8 @@
         samplePrompts: [
           {
             sceneTitle: 'Scene 01 — The Elderly Farmer & The Glowing Golden Seed',
-            imagePrompt:
-              '9:16 vertical portrait, DreamWorks and Pixar 3D animation style, a kind elderly Indian farmer wearing a simple white dhoti-kurta and pagdi, kneeling in a dry farm field at sunset, holding a glowing golden mango seed in his weathered hands, warm volumetric god rays, rich cinematic textures --ar 9:16',
-            videoMotionPrompt:
-              '[Kling 1.6 / Luma Motion]: Smooth circular camera orbit around the farmer hands. Golden light particles float upward, illuminating his amazed eyes as evening wind gently moves his turban.'
-          },
-          {
-            sceneTitle: 'Scene 02 — The Enchanted Banyan Tree at Dawn',
-            imagePrompt:
-              '9:16 vertical 3D animated film still, a colossal enchanted banyan tree standing in the center of a scenic Indian mud-house village at sunrise, golden fruits glowing softly among lush green leaves, villagers looking up in wonder, Pixar lighting --ar 9:16',
-            videoMotionPrompt:
-              '[Camera Motion]: Crane shot tilting upward from the villagers faces to the glowing golden canopy of the giant tree, morning mist drifting softly.'
+            imagePrompt: '9:16 vertical portrait, DreamWorks and Pixar 3D animation style, a kind elderly Indian farmer wearing a simple white dhoti-kurta and pagdi, kneeling in a dry farm field at sunset, holding a glowing golden mango seed in his weathered hands, warm volumetric god rays, rich cinematic textures --ar 9:16',
+            videoMotionPrompt: '[Kling 1.6 / Luma Motion]: Smooth circular camera orbit around the farmer hands. Golden light particles float upward, illuminating his amazed eyes as evening wind gently moves his turban.'
           }
         ]
       },
@@ -470,12 +254,10 @@
         creatorId: 'creator-vikram',
         creatorName: 'Vikramaditya Singh',
         creatorHandle: 'vikram_mythology',
-        creatorAvatar:
-          'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=240&q=80',
+        creatorAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=240&q=80',
         creatorPlatform: 'YT & FB • 610K',
         title: 'Ancient History, Mythology & Architecture Prompt Bible',
-        subtitle:
-          'IMAX-scale vertical prompts for ancient temples, submerged cities, celestial warriors, and historical mysteries.',
+        subtitle: 'IMAX-scale vertical prompts for ancient temples, submerged cities, celestial warriors, and historical mysteries.',
         category: 'mythology',
         badge: 'Trending',
         pages: 145,
@@ -484,10 +266,7 @@
         mrp: 699,
         rating: 4.8,
         reviewsCount: '1.1k',
-        coverImage:
-          'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=800&q=80',
-        coverGradient: 'from-amber-950 via-slate-900 to-slate-950',
-        spineColor: 'bg-amber-400',
+        coverImage: 'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=800&q=80',
         coverTag: 'EPIC CINEMA 8K',
         tools: ['Midjourney v6', 'Runway Gen-3', 'Kling 1.6', 'Luma Dream Machine'],
         chapters: [
@@ -500,17 +279,8 @@
         samplePrompts: [
           {
             sceneTitle: 'Scene 01 — Rediscovering the Submerged Golden City of Dwaraka',
-            imagePrompt:
-              '9:16 vertical IMAX frame, photorealistic cinema still, a monumental ancient carved stone temple city submerged deep underwater in clear turquoise ocean, sunbeams piercing through the surface, schools of fish swimming past grand pillars, Unreal Engine 5, 8k --ar 9:16',
-            videoMotionPrompt:
-              '[Runway Gen-3 / Kling]: Hypnotic underwater FPV camera gliding forward through the grand submerged temple gates, volumetric light rays shimmering in slow motion.'
-          },
-          {
-            sceneTitle: 'Scene 02 — Sovereign Warrior Holding a Celestial Bow at Eclipse',
-            imagePrompt:
-              '9:16 vertical, epic fantasy cinematography, silhouette of an ancient royal warrior standing on a rocky cliff during a total solar eclipse, holding an ornate golden bow crackling with blue energy, cape billowing in storm winds, Denis Villeneuve color grading --ar 9:16',
-            videoMotionPrompt:
-              '[Motion Prompt]: Low-angle heroic push-in shot. Blue energy arcs across the bowstring while embers swirl in the wind at 60fps.'
+            imagePrompt: '9:16 vertical IMAX frame, photorealistic cinema still, a monumental ancient carved stone temple city submerged deep underwater in clear turquoise ocean, sunbeams piercing through the surface, schools of fish swimming past grand pillars, Unreal Engine 5, 8k --ar 9:16',
+            videoMotionPrompt: '[Runway Gen-3 / Kling]: Hypnotic underwater FPV camera gliding forward through the grand submerged temple gates, volumetric light rays shimmering in slow motion.'
           }
         ]
       },
@@ -519,12 +289,10 @@
         creatorId: 'creator-rohit',
         creatorName: 'Rohit Sharma',
         creatorHandle: 'rohit_aishorts',
-        creatorAvatar:
-          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=240&q=80',
+        creatorAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=240&q=80',
         creatorPlatform: 'YT Shorts • 420K',
         title: 'Cinematic Luxury, Supercars & Stoic Motivation Prompts',
-        subtitle:
-          'High-contrast moody visuals for discipline theme pages, rainy night hypercars, and minimalist aesthetics.',
+        subtitle: 'High-contrast moody visuals for discipline theme pages, rainy night hypercars, and minimalist aesthetics.',
         category: 'luxury',
         badge: 'Global Niche',
         pages: 96,
@@ -533,10 +301,7 @@
         mrp: 499,
         rating: 4.8,
         reviewsCount: '940',
-        coverImage:
-          'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80',
-        coverGradient: 'from-zinc-800 via-slate-900 to-black',
-        spineColor: 'bg-slate-400',
+        coverImage: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80',
         coverTag: 'DARK AESTHETIC',
         tools: ['Midjourney v6', 'Runway Gen-3', 'Kling 1.6', 'CapCut Pro'],
         chapters: [
@@ -548,10 +313,8 @@
         samplePrompts: [
           {
             sceneTitle: 'Scene 01 — Matte-Black Hypercar in Midnight Tokyo Rain',
-            imagePrompt:
-              '9:16 vertical, automotive photography, a sleek matte-black hypercar parked on wet asphalt in a quiet Tokyo street at midnight, crimson taillights reflecting in rain puddles, moody cinematic lighting, shot on ARRI Alexa 65mm --ar 9:16',
-            videoMotionPrompt:
-              '[Runway / Kling Motion]: Low tracking shot gliding from the puddle reflection up to the hypercar silhouette as rain falls steadily.'
+            imagePrompt: '9:16 vertical, automotive photography, a sleek matte-black hypercar parked on wet asphalt in a quiet Tokyo street at midnight, crimson taillights reflecting in rain puddles, moody cinematic lighting, shot on ARRI Alexa 65mm --ar 9:16',
+            videoMotionPrompt: '[Runway / Kling Motion]: Low tracking shot gliding from the puddle reflection up to the hypercar silhouette as rain falls steadily.'
           }
         ]
       },
@@ -560,12 +323,10 @@
         creatorId: 'creator-ananya',
         creatorName: 'Ananya Verma',
         creatorHandle: 'ananya_viralcat',
-        creatorAvatar:
-          'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=240&q=80',
+        creatorAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=240&q=80',
         creatorPlatform: 'IG Reels • 185K',
         title: '1000+ Consistent AI Character & Camera Motion Manual',
-        subtitle:
-          'The technical reference guide for locking identical facial structure, outfits, and 80+ camera movements.',
+        subtitle: 'The technical reference guide for locking identical facial structure, outfits, and 80+ camera movements.',
         category: 'consistency',
         badge: 'Pro Guide',
         pages: 180,
@@ -574,10 +335,7 @@
         mrp: 999,
         rating: 4.9,
         reviewsCount: '1.6k',
-        coverImage:
-          'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
-        coverGradient: 'from-violet-950 via-slate-900 to-slate-950',
-        spineColor: 'bg-violet-400',
+        coverImage: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
         coverTag: 'TECHNICAL MANUAL',
         tools: ['Kling 1.6 Elements', 'Midjourney --cref', 'Leonardo Ref', 'Runway'],
         chapters: [
@@ -590,10 +348,8 @@
         samplePrompts: [
           {
             sceneTitle: 'Formula 01 — 4-Pose Consistent Character Reference Sheet',
-            imagePrompt:
-              'Character turnaround reference sheet, 4 full-body poses (front view, side profile, back view, 3/4 smiling expression) of the exact same 8-year-old Indian boy named Aarav, curly black hair, yellow hoodie, denim shorts, clean neutral studio grey background, Pixar 3D style, even lighting --ar 16:9',
-            videoMotionPrompt:
-              '[Workflow Step]: Upload the cropped Front View into Kling AI 1.6 Elements or Midjourney --cref to maintain 100% character identity across all 9:16 vertical scenes.'
+            imagePrompt: 'Character turnaround reference sheet, 4 full-body poses (front view, side profile, back view, 3/4 smiling expression) of the exact same 8-year-old Indian boy named Aarav, curly black hair, yellow hoodie, denim shorts, clean neutral studio grey background, Pixar 3D style, even lighting --ar 16:9',
+            videoMotionPrompt: '[Workflow Step]: Upload the cropped Front View into Kling AI 1.6 Elements or Midjourney --cref to maintain 100% character identity across all 9:16 vertical scenes.'
           }
         ]
       },
@@ -602,12 +358,10 @@
         creatorId: 'creator-rohit',
         creatorName: 'Rohit Sharma',
         creatorHandle: 'rohit_aishorts',
-        creatorAvatar:
-          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=240&q=80',
+        creatorAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=240&q=80',
         creatorPlatform: 'All-in-One Pack',
         title: 'Complete Creator Master Collection (All 5 PDF Books + Bonuses)',
-        subtitle:
-          'Unlock all 5 prompt books above (3,100+ prompts) plus the 300+ Viral Hooks Guide and Faceless Monetization Blueprint.',
+        subtitle: 'Unlock all 5 prompt books above (3,100+ prompts) plus the 300+ Viral Hooks Guide and Faceless Monetization Blueprint.',
         category: 'bundle',
         badge: 'Value Bundle',
         isBundle: true,
@@ -617,10 +371,7 @@
         mrp: 2999,
         rating: 5.0,
         reviewsCount: '4.2k',
-        coverImage:
-          'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=800&q=80',
-        coverGradient: 'from-indigo-950 via-violet-950 to-slate-950',
-        spineColor: 'bg-emerald-400',
+        coverImage: 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=800&q=80',
         coverTag: '5-BOOK MASTER SUITE',
         tools: ['All AI Video Tools', 'Kling 1.6', 'Midjourney v6', 'Runway Gen-3', 'Hailuo'],
         chapters: [
@@ -635,10 +386,8 @@
         samplePrompts: [
           {
             sceneTitle: 'Bundle Sample — Mecha-Suit Ginger Cat Kitchen Heist (9:16)',
-            imagePrompt:
-              '9:16 vertical, Pixar meets Marvel 3D render, a chubby orange cat wearing a miniature glowing mechanized exosuit hovering above a kitchen counter reaching for a plate of hot samosas, soft blue repulsor light reflecting on granite tiles, cinematic depth of field --ar 9:16',
-            videoMotionPrompt:
-              '[Kling 1.6 Motion]: Smooth camera tracking upward as miniature thruster boots flicker with blue light, the cat hovers and stretches a paw toward the samosa plate.'
+            imagePrompt: '9:16 vertical, Pixar meets Marvel 3D render, a chubby orange cat wearing a miniature glowing mechanized exosuit hovering above a kitchen counter reaching for a plate of hot samosas, soft blue repulsor light reflecting on granite tiles, cinematic depth of field --ar 9:16',
+            videoMotionPrompt: '[Kling 1.6 Motion]: Smooth camera tracking upward as miniature thruster boots flicker with blue light, the cat hovers and stretches a paw toward the samosa plate.'
           }
         ]
       }
@@ -658,9 +407,9 @@
         drmStampId: 'DRM-88412',
         couponUsed: 'ANANYA30',
         amount: 149,
-        creatorPayout92: +(149 * 0.92).toFixed(2),
-        adminCommission5: +(149 * 0.05).toFixed(2),
-        pgFee3: +(149 * 0.03).toFixed(2),
+        creatorPayout92: 137.08,
+        adminCommission5: 7.45,
+        pgFee3: 4.47,
         time: '12 mins ago'
       },
       {
@@ -676,9 +425,9 @@
         drmStampId: 'DRM-88411',
         couponUsed: 'ROHIT50',
         amount: 199,
-        creatorPayout92: +(199 * 0.92).toFixed(2),
-        adminCommission5: +(199 * 0.05).toFixed(2),
-        pgFee3: +(199 * 0.03).toFixed(2),
+        creatorPayout92: 183.08,
+        adminCommission5: 9.95,
+        pgFee3: 5.97,
         time: '28 mins ago'
       },
       {
@@ -694,44 +443,2179 @@
         drmStampId: 'DRM-88410',
         couponUsed: 'REEL50',
         amount: 399,
-        creatorPayout92: +(399 * 0.92).toFixed(2),
-        adminCommission5: +(399 * 0.05).toFixed(2),
-        pgFee3: +(399 * 0.03).toFixed(2),
+        creatorPayout92: 367.08,
+        adminCommission5: 19.95,
+        pgFee3: 11.97,
         time: '1 hour ago'
       }
     ];
 
     function App() {
-      // Primary Navigation View: 'marketplace' | 'seller-hub' | 'admin-panel'
       const [activeView, setActiveView] = useState('marketplace');
-      const [creatorStudioTab, setCreatorStudioTab] = useState('overview'); // 'overview' | 'publish' | 'coupons'
+      const [creatorStudioTab, setCreatorStudioTab] = useState('overview');
       const [activeBannerSlide, setActiveBannerSlide] = useState(0);
 
-      // Hidden Staff / Owner Portal Security (PIN: 2026)
+      // Staff Admin Security (PIN: 2026)
       const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
       const [showAdminLoginModal, setShowAdminLoginModal] = useState(false);
       const [adminPinInput, setAdminPinInput] = useState('');
-      const [adminSecretPin, setAdminSecretPin] = useState(() => loadLocal('adminPin', '2026'));
+      const [adminSecretPin, setAdminSecretPin] = useState(() => loadSaved('adminPin', '2026'));
       const [adminAuthError, setAdminAuthError] = useState('');
 
-      // Dynamic Marketplace Data (Persisted in localStorage)
-      const [couponsList, setCouponsList] = useState(() => loadLocal('coupons', INITIAL_COUPONS));
+      // Persistent State
+      const [couponsList, setCouponsList] = useState(() => loadSaved('coupons', INITIAL_COUPONS));
       const [newCouponCode, setNewCouponCode] = useState('');
       const [newCouponDiscount, setNewCouponDiscount] = useState('50');
 
-      const [productsList, setProductsList] = useState(() => loadLocal('products', PDF_PRODUCTS));
-      const [creatorsList, setCreatorsList] = useState(() => loadLocal('creators', INITIAL_CREATORS));
+      const [productsList, setProductsList] = useState(() => loadSaved('products', PDF_PRODUCTS));
+      const [creatorsList, setCreatorsList] = useState(() => loadSaved('creators', INITIAL_CREATORS));
       const [activeCreatorBioModal, setActiveCreatorBioModal] = useState(null);
-      const [pendingPdfs, setPendingPdfs] = useState(() => loadLocal('pendingPdfs', INITIAL_PENDING_PDFS));
-      const [splitTransactions, setSplitTransactions] = useState(() => loadLocal('transactions', INITIAL_TRANSACTIONS));
+      const [pendingPdfs, setPendingPdfs] = useState(() => loadSaved('pendingPdfs', INITIAL_PENDING_PDFS));
+      const [splitTransactions, setSplitTransactions] = useState(() => loadSaved('transactions', INITIAL_TRANSACTIONS));
 
-      // Save to localStorage whenever state updates
-      useEffect(() => { saveLocal('coupons', couponsList); }, [couponsList]);
-      useEffect(() => { saveLocal('products', productsList); }, [productsList]);
-      useEffect(() => { saveLocal('creators', creatorsList); }, [creatorsList]);
-      useEffect(() => { saveLocal('pendingPdfs', pendingPdfs); }, [pendingPdfs]);
-      useEffect(() => { saveLocal('transactions', splitTransactions); }, [splitTransactions]);
-      useEffect(() => { saveLocal('adminPin', adminSecretPin); }, [adminSecretPin]);
+      const [invoiceModalTx, setInvoiceModalTx] = useState(null);
+      const [stampedPdfPreviewModal, setStampedPdfPreviewModal] = useState(null);
+      const [webReaderBook, setWebReaderBook] = useState(null);
 
-      // Modals & Drawers
-      const [invoiceModalTx, setInvoiceModalTx] = useState(
+      // Creator Studio State
+      const [currentSeller, setCurrentSeller] = useState(INITIAL_CREATORS[0]);
+      const [calcPrice, setCalcPrice] = useState(199);
+      const [calcDailySales, setCalcDailySales] = useState(15);
+      const [uploadedPdfFile, setUploadedPdfFile] = useState(null);
+
+      const [newPdfTitle, setNewPdfTitle] = useState('');
+      const [newPdfSubtitle, setNewPdfSubtitle] = useState('');
+      const [newPdfPrice, setNewPdfPrice] = useState('149');
+      const [newPdfMrp, setNewPdfMrp] = useState('599');
+      const [newPdfPages, setNewPdfPages] = useState('95');
+      const [newPdfPromptsCount, setNewPdfPromptsCount] = useState('450+');
+      const [newPdfCategory, setNewPdfCategory] = useState('cat-stories');
+      const [newPdfSamplePrompt, setNewPdfSamplePrompt] = useState('');
+      const [newSellerName, setNewSellerName] = useState(INITIAL_CREATORS[0].name);
+      const [newSellerHandle, setNewSellerHandle] = useState(INITIAL_CREATORS[0].handle);
+      const [newSellerPlatform, setNewSellerPlatform] = useState(INITIAL_CREATORS[0].platform);
+      const [newSellerUpi, setNewSellerUpi] = useState(INITIAL_CREATORS[0].upiId);
+
+      // Support & Legal Configuration
+      const [supportWhatsapp, setSupportWhatsapp] = useState(() => loadSaved('supportWhatsapp', '919876543210'));
+      const [supportEmail, setSupportEmail] = useState(() => loadSaved('supportEmail', 'support@promptbazar.in'));
+      const [businessLegalName, setBusinessLegalName] = useState(() => loadSaved('businessLegalName', 'PromptBazar Digital Media'));
+      const [businessAddress, setBusinessAddress] = useState(() => loadSaved('businessAddress', 'Boring Road, Patna, Bihar - 800001, India'));
+
+      // Storefront Filter & Search
+      const [activeCategory, setActiveCategory] = useState('all');
+      const [searchQuery, setSearchQuery] = useState('');
+
+      // Modals
+      const [previewBook, setPreviewBook] = useState(null);
+      const [copiedSampleIndex, setCopiedSampleIndex] = useState(null);
+
+      const [checkoutBook, setCheckoutBook] = useState(null);
+      const [buyerName, setBuyerName] = useState('');
+      const [buyerEmail, setBuyerEmail] = useState('');
+      const [buyerPhone, setBuyerPhone] = useState('');
+      const [couponInput, setCouponInput] = useState('');
+      const [appliedCoupon, setAppliedCoupon] = useState(null);
+      const [couponError, setCouponError] = useState('');
+      const [includeOrderBump, setIncludeOrderBump] = useState(false);
+      const [formError, setFormError] = useState('');
+      const [paymentStep, setPaymentStep] = useState('form');
+
+      const [purchasedItems, setPurchasedItems] = useState(() => loadSaved('purchased', []));
+      const [showPurchasesModal, setShowPurchasesModal] = useState(false);
+      const [openFaq, setOpenFaq] = useState(0);
+      const [legalModal, setLegalModal] = useState(null);
+      const [toastMsg, setToastMsg] = useState(null);
+
+      const showToast = (msg) => {
+        setToastMsg(msg);
+        setTimeout(() => setToastMsg(null), 3200);
+      };
+
+      // Save to localStorage on change
+      useEffect(() => { saveSaved('coupons', couponsList); }, [couponsList]);
+      useEffect(() => { saveSaved('products', productsList); }, [productsList]);
+      useEffect(() => { saveSaved('creators', creatorsList); }, [creatorsList]);
+      useEffect(() => { saveSaved('pendingPdfs', pendingPdfs); }, [pendingPdfs]);
+      useEffect(() => { saveSaved('transactions', splitTransactions); }, [splitTransactions]);
+      useEffect(() => { saveSaved('purchased', purchasedItems); }, [purchasedItems]);
+      useEffect(() => { saveSaved('adminPin', adminSecretPin); }, [adminSecretPin]);
+      useEffect(() => { saveSaved('supportWhatsapp', supportWhatsapp); }, [supportWhatsapp]);
+      useEffect(() => { saveSaved('supportEmail', supportEmail); }, [supportEmail]);
+      useEffect(() => { saveSaved('businessLegalName', businessLegalName); }, [businessLegalName]);
+      useEffect(() => { saveSaved('businessAddress', businessAddress); }, [businessAddress]);
+
+      // Auto-advance Hero Banner
+      useEffect(() => {
+        if (activeView !== 'marketplace') return;
+        const timer = setInterval(() => {
+          setActiveBannerSlide((prev) => (prev + 1) % 3);
+        }, 6000);
+        return () => clearInterval(timer);
+      }, [activeView]);
+
+      const filteredBooks = useMemo(() => {
+        return productsList.filter((book) => {
+          const matchesCat = activeCategory === 'all' || book.category === activeCategory;
+          const q = searchQuery.toLowerCase().trim();
+          const matchesSearch =
+            !q ||
+            book.title.toLowerCase().includes(q) ||
+            book.subtitle.toLowerCase().includes(q) ||
+            (book.creatorName && book.creatorName.toLowerCase().includes(q)) ||
+            (book.creatorHandle && book.creatorHandle.toLowerCase().includes(q)) ||
+            (book.tools && book.tools.some((t) => t.toLowerCase().includes(q)));
+          return matchesCat && matchesSearch;
+        });
+      }, [productsList, activeCategory, searchQuery]);
+
+      const copyToClipboard = async (text, label = 'Copied to clipboard') => {
+        const fallbackCopy = (str) => {
+          try {
+            const textArea = document.createElement('textarea');
+            textArea.value = str;
+            textArea.setAttribute('readonly', '');
+            textArea.style.position = 'fixed';
+            textArea.style.top = '-9999px';
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+          } catch (err) {}
+        };
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+          } else {
+            fallbackCopy(text);
+          }
+        } catch (err) {
+          fallbackCopy(text);
+        }
+        showToast(label);
+      };
+
+      const handlePdfFileSelect = (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const sizeInMb = (file.size / (1024 * 1024)).toFixed(2);
+        const objectUrl = URL.createObjectURL(file);
+        setUploadedPdfFile({ name: file.name, size: `${sizeInMb} MB`, url: objectUrl });
+        if (!newPdfTitle.trim()) {
+          const cleanName = file.name.replace(/\.pdf$/i, '').replace(/[-_]/g, ' ');
+          setNewPdfTitle(cleanName);
+        }
+        showToast(`Attached "${file.name}" (${sizeInMb} MB)`);
+      };
+
+      const handleSelectCreatorAccount = (creator) => {
+        setCurrentSeller(creator);
+        setNewSellerName(creator.name);
+        setNewSellerHandle(creator.handle);
+        setNewSellerPlatform(creator.platform);
+        setNewSellerUpi(creator.upiId);
+        showToast(`Switched to @${creator.handle}`);
+      };
+
+      const handlePublishCreatorPdf = (e) => {
+        e.preventDefault();
+        if (!newPdfTitle.trim() || !newSellerHandle.trim() || !newSellerUpi.trim()) {
+          showToast('Please complete Title, Handle, and UPI ID');
+          return;
+        }
+        const cleanHandle = newSellerHandle.toLowerCase().replace(/[^a-z0-9_]/g, '');
+        const priceNum = Math.max(49, parseInt(newPdfPrice, 10) || 149);
+        const mrpNum = Math.max(priceNum + 100, parseInt(newPdfMrp, 10) || 599);
+        const creatorId = `creator-${cleanHandle}`;
+        const existingCreator = creatorsList.find((c) => c.handle === cleanHandle);
+
+        const updatedCreatorObj = {
+          id: creatorId,
+          name: newSellerName.trim() || 'AI Video Creator',
+          handle: cleanHandle,
+          platform: newSellerPlatform,
+          followers: existingCreator ? existingCreator.followers : 'Verified Creator',
+          avatarUrl: (existingCreator && existingCreator.avatarUrl) || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=240&q=80',
+          upiId: newSellerUpi.trim(),
+          splitRouteId: existingCreator ? existingCreator.splitRouteId : `acc_RzpRoute_${Math.floor(1000 + Math.random() * 9000)}`,
+          email: `${cleanHandle}@promptbazar.in`,
+          bio: `Official AI Video Prompt Store by @${cleanHandle} on PromptBazar.`,
+          verified: true,
+          totalSalesCount: existingCreator ? existingCreator.totalSalesCount : 0,
+          grossRevenue: existingCreator ? existingCreator.grossRevenue : 0,
+          autoSettled92: existingCreator ? existingCreator.autoSettled92 : 0
+        };
+
+        setCurrentSeller(updatedCreatorObj);
+        setCreatorsList((prev) => {
+          const exists = prev.some((c) => c.handle === cleanHandle);
+          return exists
+            ? prev.map((c) => (c.handle === cleanHandle ? { ...c, ...updatedCreatorObj } : c))
+            : [updatedCreatorObj, ...prev];
+        });
+
+        const newBookSubmission = {
+          id: `custom-pdf-${Date.now()}`,
+          creatorId,
+          creatorName: updatedCreatorObj.name,
+          creatorHandle: cleanHandle,
+          creatorAvatar: updatedCreatorObj.avatarUrl,
+          creatorPlatform: `${newSellerPlatform}`,
+          title: newPdfTitle.trim(),
+          subtitle: newPdfSubtitle.trim() || 'Production-ready 9:16 vertical AI video & image prompts tested for short-form retention.',
+          category: newPdfCategory,
+          badge: 'New Release',
+          pages: parseInt(newPdfPages, 10) || 95,
+          promptsCount: newPdfPromptsCount || '450+',
+          price: priceNum,
+          mrp: mrpNum,
+          rating: 5.0,
+          reviewsCount: '1',
+          coverImage: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
+          coverTag: `BY @${cleanHandle.toUpperCase()}`,
+          uploadedFileName: uploadedPdfFile ? uploadedPdfFile.name : `${cleanHandle}_prompts.pdf`,
+          uploadedFileSize: uploadedPdfFile ? uploadedPdfFile.size : '3.8 MB',
+          submittedAt: 'Just now',
+          status: 'pending',
+          tools: ['Kling 1.6', 'Midjourney v6', 'Runway Gen-3'],
+          chapters: [
+            '01. 9:16 Vertical Character Consistency Formula',
+            '02. Scene-by-Scene Storytelling Prompts',
+            '03. Camera Motion Commands for Kling & Runway',
+            '04. Audio & Retention Editing Workflow'
+          ],
+          samplePrompts: [
+            {
+              sceneTitle: 'Sample Scene 01 — 9:16 Vertical Keyframe',
+              imagePrompt: newPdfSamplePrompt.trim() || '9:16 vertical aspect ratio, ultra-detailed 3D cinematic render, expressive protagonist in golden-hour rim lighting, Unreal Engine 5, 8k --ar 9:16',
+              videoMotionPrompt: '[Kling 1.6 Motion]: Smooth dolly push-in at 60fps, subtle atmospheric particles floating in slow motion.'
+            }
+          ]
+        };
+
+        setPendingPdfs((prev) => [newBookSubmission, ...prev]);
+        setNewPdfTitle('');
+        setNewPdfSubtitle('');
+        setNewPdfSamplePrompt('');
+        setUploadedPdfFile(null);
+        setCreatorStudioTab('overview');
+        showToast('Submitted for review! Approve via Staff Login (PIN: 2026) in the footer.');
+      };
+
+      const handleCreateCreatorCoupon = (e) => {
+        e.preventDefault();
+        const cleanCode = newCouponCode.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+        const discAmount = Math.min(200, Math.max(10, parseInt(newCouponDiscount, 10) || 50));
+        if (cleanCode.length < 3) {
+          showToast('Enter a valid coupon code (min 3 characters)');
+          return;
+        }
+        const couponObj = {
+          code: cleanCode,
+          discount: discAmount,
+          creatorHandle: currentSeller.handle,
+          creatorName: currentSeller.name,
+          uses: 0
+        };
+        setCouponsList((prev) => [couponObj, ...prev.filter((c) => c.code !== cleanCode)]);
+        setNewCouponCode('');
+        showToast(`Coupon ${cleanCode} (₹${discAmount} OFF) created`);
+      };
+
+      const handleDeleteCoupon = (codeToDelete) => {
+        setCouponsList((prev) => prev.filter((c) => c.code !== codeToDelete));
+        showToast(`Deleted coupon ${codeToDelete}`);
+      };
+
+      const handleAdminApprovePdf = (pdfId) => {
+        const target = pendingPdfs.find((p) => p.id === pdfId);
+        if (!target) return;
+        const approvedBook = { ...target, status: 'approved' };
+        setProductsList((prev) => [approvedBook, ...prev]);
+        setPendingPdfs((prev) => prev.filter((p) => p.id !== pdfId));
+        showToast(`Approved & published "${target.title}"`);
+      };
+
+      const handleAdminRejectPdf = (pdfId) => {
+        setPendingPdfs((prev) => prev.filter((p) => p.id !== pdfId));
+        showToast('Submission removed from queue');
+      };
+
+      const handleOpenCheckout = (book) => {
+        setCheckoutBook(book);
+        setPaymentStep('form');
+        setFormError('');
+        setPreviewBook(null);
+      };
+
+      const handleApplyCoupon = (codeToTry) => {
+        const clean = (codeToTry || couponInput).trim().toUpperCase();
+        setCouponError('');
+        const matchedCoupon = couponsList.find((c) => c.code === clean);
+        if (matchedCoupon) {
+          if (matchedCoupon.creatorHandle !== 'ALL' && checkoutBook && checkoutBook.creatorHandle !== matchedCoupon.creatorHandle) {
+            setCouponError(`Valid only on @${matchedCoupon.creatorHandle}'s books. Try REEL50.`);
+            return;
+          }
+          setAppliedCoupon(matchedCoupon);
+          setCouponInput(clean);
+          showToast(`Promo code ${clean} applied (-₹${matchedCoupon.discount})`);
+        } else {
+          setCouponError('Invalid code. Try REEL50 or ROHIT50');
+        }
+      };
+
+      const checkoutTotals = useMemo(() => {
+        if (!checkoutBook) return { base: 0, bump: 0, coupon: 0, total: 0, saved: 0 };
+        const base = checkoutBook.price;
+        const bump = includeOrderBump ? 49 : 0;
+        const coupon = appliedCoupon ? appliedCoupon.discount : 0;
+        const total = Math.max(49, base + bump - coupon);
+        const saved = checkoutBook.mrp - base + coupon + (includeOrderBump ? 250 : 0);
+        return { base, bump, coupon, total, saved };
+      }, [checkoutBook, includeOrderBump, appliedCoupon]);
+
+      const handleCompletePayment = (e) => {
+        e.preventDefault();
+        if (!buyerName.trim() || !buyerEmail.trim() || buyerPhone.trim().length < 10) {
+          setFormError('Please enter your full name, valid email, and 10-digit WhatsApp number.');
+          return;
+        }
+        setFormError('');
+        setPaymentStep('processing');
+        setTimeout(() => {
+          setPaymentStep('success');
+          if (checkoutBook) {
+            const totalPaid = checkoutTotals.total;
+            const creatorCut92 = +(totalPaid * 0.92).toFixed(2);
+            const adminCut5 = +(totalPaid * 0.05).toFixed(2);
+            const pgCut3 = +(totalPaid * 0.03).toFixed(2);
+            const generatedDrmId = `DRM-${Math.floor(10000 + Math.random() * 90000)}`;
+            const purchaseTimestamp = new Date().toLocaleString('en-IN', {
+              day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit'
+            });
+
+            const matchedCreator = creatorsList.find((c) => c.handle === checkoutBook.creatorHandle);
+            const autoSplitUtr = `SPLIT_UTR_${Math.floor(1000000 + Math.random() * 9000000)}`;
+            const newTxObj = {
+              id: `TXN-${Math.floor(1000 + Math.random() * 9000)}`,
+              pdfTitle: checkoutBook.title,
+              creatorHandle: `@${checkoutBook.creatorHandle || 'rohit_aishorts'}`,
+              creatorUpi: matchedCreator ? matchedCreator.upiId : 'rohitstudio@okicici',
+              splitRouteId: matchedCreator ? matchedCreator.splitRouteId : 'acc_RzpRoute_9041',
+              splitUtr: autoSplitUtr,
+              buyerName: buyerName.trim(),
+              buyerPhone: `+91-${buyerPhone.trim()}`,
+              buyerEmail: buyerEmail.trim(),
+              drmStampId: generatedDrmId,
+              couponUsed: appliedCoupon ? appliedCoupon.code : 'NONE',
+              amount: totalPaid,
+              creatorPayout92: creatorCut92,
+              adminCommission5: adminCut5,
+              pgFee3: pgCut3,
+              time: purchaseTimestamp
+            };
+
+            setSplitTransactions((prev) => [newTxObj, ...prev]);
+
+            if (appliedCoupon) {
+              const updatedCoupon = { ...appliedCoupon, uses: (appliedCoupon.uses || 0) + 1 };
+              setCouponsList((prev) => prev.map((cp) => (cp.code === appliedCoupon.code ? updatedCoupon : cp)));
+            }
+
+            setCreatorsList((prev) =>
+              prev.map((c) => {
+                if (c.handle === checkoutBook.creatorHandle) {
+                  return {
+                    ...c,
+                    totalSalesCount: (c.totalSalesCount || 0) + 1,
+                    grossRevenue: +((c.grossRevenue || 0) + totalPaid).toFixed(2),
+                    autoSettled92: +((c.autoSettled92 || 0) + creatorCut92).toFixed(2)
+                  };
+                }
+                return c;
+              })
+            );
+
+            const stampedPurchaseRecord = {
+              ...checkoutBook,
+              purchasedAt: purchaseTimestamp,
+              withBonusHooks: includeOrderBump,
+              stampedBuyerName: buyerName.trim(),
+              stampedBuyerPhone: `+91-${buyerPhone.trim()}`,
+              stampedBuyerEmail: buyerEmail.trim(),
+              drmLicenseId: generatedDrmId,
+              txReceipt: newTxObj
+            };
+
+            setPurchasedItems((prev) => [stampedPurchaseRecord, ...prev.filter((item) => item.id !== checkoutBook.id)]);
+          }
+          showToast('Payment verified! Your PDF Book is ready.');
+        }, 1200);
+      };
+
+      const escapePdfText = (str) =>
+        String(str || '')
+          .replace(/[^\x20-\x7E]/g, ' ')
+          .replace(/\\/g, '\\\\')
+          .replace(/\(/g, '\\(')
+          .replace(/\)/g, '\\)');
+
+      const triggerRealPdfPackDownload = (book) => {
+        const stampName = (book.stampedBuyerName || buyerName || 'VERIFIED BUYER').toUpperCase();
+        const stampPhone = book.stampedBuyerPhone || (buyerPhone ? `+91-${buyerPhone}` : '+91-9876543210');
+        const stampEmail = book.stampedBuyerEmail || buyerEmail || 'buyer@promptbazar.in';
+        const stampDrmId = book.drmLicenseId || `DRM-${Math.floor(10000 + Math.random() * 90000)}`;
+        const stampDate = book.purchasedAt || new Date().toLocaleDateString('en-IN');
+
+        const lines = [
+          `PromptBazar.in — Official AI Video Prompt Book`,
+          `Title: ${book.title}`,
+          `Creator: @${book.creatorHandle || 'rohit_aishorts'} | Pages: ${book.pages} | Prompts: ${book.promptsCount}`,
+          `-----------------------------------------------------------------------------`,
+          `[BUYER LICENSE & PERSONAL WATERMARK]`,
+          `Licensed Buyer      : ${stampName}`,
+          `Registered Mobile   : ${stampPhone}`,
+          `Registered Email    : ${stampEmail}`,
+          `License ID          : ${stampDrmId} | Date: ${stampDate}`,
+          `-----------------------------------------------------------------------------`,
+          `TABLE OF CONTENTS:`,
+          ...(book.chapters || []).map((c) => `  • ${c}`),
+          `-----------------------------------------------------------------------------`,
+          `PRODUCTION AI VIDEO PROMPTS (9:16 VERTICAL):`
+        ];
+
+        (book.samplePrompts || []).forEach((sp, idx) => {
+          lines.push(` `);
+          lines.push(`SCENE 0${idx + 1}: ${sp.sceneTitle}`);
+          lines.push(`  [IMAGE]: ${sp.imagePrompt.slice(0, 92)}`);
+          if (sp.imagePrompt.length > 92) lines.push(`  ${sp.imagePrompt.slice(92, 184)}`);
+          if (sp.imagePrompt.length > 184) lines.push(`  ${sp.imagePrompt.slice(184, 276)}`);
+          lines.push(`  [MOTION]: ${sp.videoMotionPrompt.slice(0, 92)}`);
+          if (sp.videoMotionPrompt.length > 92) lines.push(`  ${sp.videoMotionPrompt.slice(92, 184)}`);
+        });
+
+        lines.push(` `);
+        lines.push(`-----------------------------------------------------------------------------`);
+        lines.push(`LICENSED COPY: ${stampName} (${stampPhone}) [${stampDrmId}]`);
+
+        let streamCommands = `q\n0.09 0.11 0.18 rg\n30 785 535 36 re f\n`;
+        streamCommands += `BT /F1 10 Tf 1 1 1 rg 42 805 Td (${escapePdfText(`PROMPTBAZAR.IN | LICENSED TO: ${stampName} (${stampPhone})`)}) Tj ET\n`;
+        streamCommands += `BT /F1 8 Tf 0.75 0.82 0.95 rg 42 792 Td (${escapePdfText(`License ID: ${stampDrmId} | Email: ${stampEmail} | Verified Digital Edition`)}) Tj ET\n`;
+        streamCommands += `BT /F1 18 Tf 0.90 0.90 0.92 rg 0.866 0.5 -0.5 0.866 95 280 Tm (${escapePdfText(`LICENSED TO ${stampName} (${stampPhone})`)}) Tj ET\n`;
+
+        let yPos = 762;
+        lines.forEach((line) => {
+          if (yPos > 65) {
+            streamCommands += `BT /F1 9 Tf 0.12 0.15 0.22 rg 38 ${yPos} Td (${escapePdfText(line)}) Tj ET\n`;
+            yPos -= 15;
+          }
+        });
+
+        streamCommands += `0.09 0.11 0.18 rg\n30 22 535 28 re f\n`;
+        streamCommands += `BT /F1 9 Tf 0.35 0.85 0.65 rg 42 33 Td (${escapePdfText(`LICENSED BUYER: ${stampName} | MOB: ${stampPhone} | ID: ${stampDrmId}`)}) Tj ET\nQ\n`;
+
+        const pdfObjects = [
+          `1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n`,
+          `2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n`,
+          `3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>\nendobj\n`,
+          `4 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>\nendobj\n`,
+          `5 0 obj\n<< /Length ${streamCommands.length} >>\nstream\n${streamCommands}endstream\nendobj\n`
+        ];
+
+        let pdfFile = `%PDF-1.4\n`;
+        const offsets = [0];
+        pdfObjects.forEach((obj) => {
+          offsets.push(pdfFile.length);
+          pdfFile += obj;
+        });
+        const xrefStart = pdfFile.length;
+        pdfFile += `xref\n0 ${pdfObjects.length + 1}\n0000000000 65535 f \n`;
+        for (let i = 1; i <= pdfObjects.length; i++) {
+          pdfFile += `${String(offsets[i]).padStart(10, '0')} 00000 n \n`;
+        }
+        pdfFile += `trailer\n<< /Size ${pdfObjects.length + 1} /Root 1 0 R >>\nstartxref\n${xrefStart}\n%%EOF`;
+
+        const blob = new Blob([pdfFile], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        const cleanPhoneSlug = stampPhone.replace(/[^0-9]/g, '').slice(-10) || 'Licensed';
+        a.download = `${book.id}-${cleanPhoneSlug}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast(`Downloaded PDF Book for ${stampName}`);
+      };
+
+      const triggerSplitInvoicePdfDownload = (tx) => {
+        const invNo = `INV-${(tx.id || 'TXN-9901').replace('TXN-', '')}`;
+        const bName = (tx.buyerName || buyerName || 'Verified Buyer').toUpperCase();
+        const bPhone = tx.buyerPhone || (buyerPhone ? `+91-${buyerPhone}` : '+91-9876543210');
+        const bEmail = tx.buyerEmail || buyerEmail || 'buyer@promptbazar.in';
+        const cHandle = tx.creatorHandle || '@rohit_aishorts';
+        const drmId = tx.drmStampId || 'DRM-88412';
+        const totalAmt = Number(tx.amount || 149).toFixed(2);
+
+        const receiptLines = [
+          `OFFICIAL PAYMENT RECEIPT & TAX INVOICE`,
+          `Issued By: ${businessLegalName} (${businessAddress})`,
+          `Invoice No: ${invNo}   |   Order ID: ${tx.id}   |   Date: ${tx.time || 'Verified'}`,
+          `-----------------------------------------------------------------------------`,
+          `CUSTOMER DETAILS:`,
+          `   Customer Name       : ${bName}`,
+          `   WhatsApp Mobile     : ${bPhone}`,
+          `   Email Address       : ${bEmail}`,
+          `   License Stamp ID    : ${drmId}`,
+          `-----------------------------------------------------------------------------`,
+          `ORDER SUMMARY:`,
+          `   Digital Book        : ${tx.pdfTitle}`,
+          `   Creator Storefront  : ${cHandle}`,
+          `   Promo Code Applied  : ${tx.couponUsed || 'NONE'}`,
+          `   Total Amount Paid   : Rs. ${totalAmt} (Paid via Verified UPI/Card)`,
+          `-----------------------------------------------------------------------------`,
+          `Thank you for shopping on PromptBazar.in!`,
+          `For instant support, WhatsApp us at +${supportWhatsapp} or email ${supportEmail}.`
+        ];
+
+        let stream = `q\n0.08 0.10 0.16 rg\n30 775 535 42 re f\n`;
+        stream += `BT /F1 11 Tf 1 1 1 rg 42 798 Td (${escapePdfText(`PROMPTBAZAR.IN — PAYMENT RECEIPT (${invNo})`)}) Tj ET\n`;
+        stream += `BT /F1 8.5 Tf 0.70 0.78 0.90 rg 42 784 Td (${escapePdfText(`Official Digital Book Purchase Invoice`)}) Tj ET\n`;
+
+        let y = 748;
+        receiptLines.forEach((line) => {
+          stream += `BT /F1 9 Tf 0.15 0.18 0.25 rg 38 ${y} Td (${escapePdfText(line)}) Tj ET\n`;
+          y -= 18;
+        });
+        stream += `Q\n`;
+
+        const objs = [
+          `1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n`,
+          `2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n`,
+          `3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>\nendobj\n`,
+          `4 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>\nendobj\n`,
+          `5 0 obj\n<< /Length ${stream.length} >>\nstream\n${stream}endstream\nendobj\n`
+        ];
+
+        let pdf = `%PDF-1.4\n`;
+        const offs = [0];
+        objs.forEach((o) => {
+          offs.push(pdf.length);
+          pdf += o;
+        });
+        const xrefPos = pdf.length;
+        pdf += `xref\n0 ${objs.length + 1}\n0000000000 65535 f \n`;
+        for (let i = 1; i <= objs.length; i++) {
+          pdf += `${String(offs[i]).padStart(10, '0')} 00000 n \n`;
+        }
+        pdf += `trailer\n<< /Size ${objs.length + 1} /Root 1 0 R >>\nstartxref\n${xrefPos}\n%%EOF`;
+
+        const blob = new Blob([pdf], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `PromptBazar-Receipt-${invNo}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast(`Downloaded Receipt ${invNo}.pdf`);
+      };
+
+      const handleImgError = (e) => {
+        e.target.onerror = null;
+        e.target.src = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80';
+      };
+
+      return (
+        <div className="min-h-screen bg-[#F8FAFC] text-slate-900 font-sans antialiased">
+          {/* TOAST NOTIFICATION */}
+          {toastMsg && (
+            <div className="fixed bottom-20 right-6 z-50 bg-slate-900 text-white text-xs font-medium px-4 py-3 rounded-xl shadow-2xl border border-slate-700 flex items-center gap-2.5">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>{toastMsg}</span>
+            </div>
+          )}
+
+          {/* FLOATING WHATSAPP HELPDESK BUTTON */}
+          <a
+            href={`https://wa.me/${supportWhatsapp}?text=${encodeURIComponent('Hi PromptBazar Team, I need help regarding an AI Prompt PDF book.')}`}
+            target="_blank"
+            rel="noreferrer"
+            className="fixed bottom-5 right-5 z-40 flex items-center gap-2.5 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs px-4 py-3 rounded-full shadow-lg border border-white/40 transition-all duration-200 hover:-translate-y-0.5"
+          >
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white" />
+            </span>
+            <MessageCircle className="w-4 h-4 fill-white text-white shrink-0" />
+            <span>WhatsApp Help</span>
+          </a>
+
+          {/* TOP ANNOUNCEMENT STRIP */}
+          <div className="bg-slate-950 text-slate-300 text-[11px] py-1.5 px-4 border-b border-slate-800">
+            <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <span className="bg-rose-600 text-white font-bold px-2 py-0.5 rounded text-[10px] uppercase tracking-wider">
+                  India&apos;s #1 AI Prompt Library
+                </span>
+                <span className="text-slate-300">
+                  Largest Collection of Indian 9:16 AI Video &amp; Reel Prompt PDF Books • Use Code:{' '}
+                  <strong className="text-amber-400 font-mono">REEL50</strong>
+                </span>
+              </div>
+              <div className="hidden sm:flex items-center gap-4 text-slate-400">
+                <span>📞 WhatsApp Help: +{supportWhatsapp}</span>
+                <span>•</span>
+                <span className="text-emerald-400 font-medium">100% Instant PDF Delivery</span>
+              </div>
+            </div>
+          </div>
+
+          {/* HEADER */}
+          <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+              <div className="flex items-center gap-8">
+                <button onClick={() => setActiveView('marketplace')} className="flex items-center gap-2.5 text-left group">
+                  <div className="w-9 h-9 rounded-lg bg-slate-950 flex items-center justify-center shadow-sm group-hover:bg-rose-600 transition">
+                    <BookOpen className="w-4 h-4 text-white" />
+                  </div>
+                  <div className="flex flex-col">
+                    <div className="flex items-baseline">
+                      <span className="font-black text-xl tracking-tight text-slate-950">PROMPT</span>
+                      <span className="font-light text-xl tracking-tight text-rose-600">BAZAR</span>
+                      <span className="text-[10px] font-bold text-slate-400 ml-0.5">.IN</span>
+                    </div>
+                    <span className="text-[9px] uppercase tracking-widest text-slate-400 -mt-1 font-semibold">
+                      Indian AI Visuals &amp; PDFs
+                    </span>
+                  </div>
+                </button>
+
+                <nav className="hidden md:flex items-center gap-1 text-xs font-semibold text-slate-600">
+                  <button
+                    onClick={() => setActiveView('marketplace')}
+                    className={`px-3.5 py-2 rounded-lg transition ${
+                      activeView === 'marketplace' ? 'text-slate-950 bg-slate-100 font-bold' : 'hover:text-slate-950 hover:bg-slate-50'
+                    }`}
+                  >
+                    Explore Collections
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveView('marketplace');
+                      setActiveCategory('bundle');
+                    }}
+                    className="px-3.5 py-2 rounded-lg hover:text-slate-950 hover:bg-slate-50 transition"
+                  >
+                    5-Book Master Bundle
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveView('seller-hub');
+                      setCreatorStudioTab('overview');
+                    }}
+                    className={`px-3.5 py-2 rounded-lg transition ${
+                      activeView === 'seller-hub' ? 'text-rose-600 bg-rose-50 font-bold' : 'hover:text-rose-600 hover:bg-rose-50/50'
+                    }`}
+                  >
+                    Sell Your Prompts
+                  </button>
+                  {isAdminAuthenticated && (
+                    <button
+                      onClick={() => setActiveView('admin-panel')}
+                      className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
+                        activeView === 'admin-panel' ? 'text-amber-800 bg-amber-100 border border-amber-300' : 'text-amber-700 hover:bg-amber-50'
+                      }`}
+                    >
+                      <Lock className="w-3 h-3" />
+                      <span>Staff Admin</span>
+                    </button>
+                  )}
+                </nav>
+              </div>
+
+              <div className="flex items-center gap-2 sm:gap-2.5">
+                <a
+                  href={`https://wa.me/${supportWhatsapp}?text=${encodeURIComponent('Hi PromptBazar Team, I need help regarding an AI Prompt PDF book.')}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 transition"
+                >
+                  <MessageCircle className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span className="hidden sm:inline">WhatsApp Helpdesk</span>
+                  <span className="sm:hidden">Help</span>
+                </a>
+
+                <button
+                  onClick={() => setShowPurchasesModal(true)}
+                  className="bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-2 transition shadow-sm"
+                >
+                  <BookOpen className="w-3.5 h-3.5 text-rose-600" />
+                  <span>My Books</span>
+                  {purchasedItems.length > 0 && (
+                    <span className="bg-rose-600 text-white font-bold text-[10px] px-1.5 py-0.5 rounded-full">
+                      {purchasedItems.length}
+                    </span>
+                  )}
+                </button>
+
+                <button
+                  onClick={() => {
+                    setActiveView('seller-hub');
+                    setCreatorStudioTab('overview');
+                  }}
+                  className="bg-slate-950 hover:bg-rose-600 text-white text-xs font-bold px-3.5 py-2 rounded-lg transition flex items-center gap-1.5 shadow-sm"
+                >
+                  <span>Sell Prompts</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+          </header>
+
+          {/* VIEW 1: MARKETPLACE */}
+          {activeView === 'marketplace' && (
+            <main>
+              {/* HERO SECTION */}
+              <section className="relative bg-slate-950 overflow-hidden border-b border-slate-200">
+                <img
+                  src={
+                    activeBannerSlide === 0
+                      ? 'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1800&q=80'
+                      : activeBannerSlide === 1
+                      ? 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1800&q=80'
+                      : 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=1800&q=80'
+                  }
+                  onError={handleImgError}
+                  alt="PromptBazar Visual Backdrop"
+                  className="absolute inset-0 w-full h-full object-cover opacity-40 scale-105 transition-all duration-1000"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/75 to-slate-950/95" />
+
+                <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16 lg:py-20 text-center space-y-6">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-semibold">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                    <span>World&apos;s Largest Collection of Indian AI Video &amp; Reel Prompt PDFs</span>
+                  </div>
+
+                  <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
+                    Search Over <span className="text-rose-500">3,100+ Viral AI Video Prompts</span> &amp; Digital Books
+                  </h1>
+                  <p className="text-slate-300 text-xs sm:text-base max-w-2xl mx-auto">
+                    Ready-to-copy 9:16 vertical storytelling prompts for YouTube Shorts, Instagram Reels &amp; Facebook Creators. Instant PDF Download.
+                  </p>
+
+                  {/* OMNI-SEARCH BAR */}
+                  <div className="max-w-3xl mx-auto pt-2">
+                    <div className="bg-white p-1.5 sm:p-2 rounded-2xl shadow-2xl flex flex-col sm:flex-row items-stretch sm:items-center gap-2 border-2 border-white/90">
+                      <select
+                        value={activeCategory}
+                        onChange={(e) => setActiveCategory(e.target.value)}
+                        className="bg-slate-100 hover:bg-slate-200/70 text-slate-800 font-bold text-xs px-3.5 py-3 rounded-xl outline-none cursor-pointer border border-slate-200 shrink-0"
+                      >
+                        <option value="all">All Collections</option>
+                        <option value="cat-stories">Cat &amp; Pet Reels</option>
+                        <option value="3d-kahani">3D Moral Kahani</option>
+                        <option value="mythology">Indian Mythology</option>
+                        <option value="consistency">Character Consistency</option>
+                        <option value="luxury">Luxury &amp; Cars</option>
+                        <option value="bundle">5-Book Master Bundle</option>
+                      </select>
+
+                      <div className="relative flex-1 flex items-center">
+                        <Search className="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" />
+                        <input
+                          type="text"
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          placeholder="Search 'Cat Cooking', '3D Village Kahani', 'Dwaraka', 'Consistent Character'..."
+                          className="w-full pl-10 pr-8 py-2.5 text-xs sm:text-sm text-slate-900 placeholder-slate-400 font-medium outline-none bg-transparent"
+                        />
+                        {searchQuery && (
+                          <button onClick={() => setSearchQuery('')} className="absolute right-2.5 text-slate-400 hover:text-slate-700">
+                            <X className="w-4 h-4" />
+                          </button>
+                        )}
+                      </div>
+
+                      <a
+                        href="#catalog"
+                        className="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-xl flex items-center justify-center gap-2 transition shrink-0 shadow-sm"
+                      >
+                        <Search className="w-4 h-4" />
+                        <span>Search PDFs</span>
+                      </a>
+                    </div>
+
+                    <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 pt-4 text-[11px]">
+                      <span className="text-slate-400 font-semibold">Popular Searches:</span>
+                      {[
+                        { label: 'Ginger Cat Chai', cat: 'cat-stories', q: 'Cat' },
+                        { label: '3D Village Moral Kahani', cat: '3d-kahani', q: 'Village' },
+                        { label: 'Ancient Mythology 8K', cat: 'mythology', q: 'Ancient' },
+                        { label: 'Consistent Character Seed', cat: 'consistency', q: 'Character' },
+                        { label: 'Supercar Rain Reels', cat: 'luxury', q: 'Hypercar' },
+                        { label: 'All 5 Books Bundle (₹399)', cat: 'bundle', q: '' }
+                      ].map((tag) => (
+                        <button
+                          key={tag.label}
+                          onClick={() => {
+                            setActiveCategory(tag.cat);
+                            setSearchQuery(tag.q);
+                          }}
+                          className="px-2.5 py-1 rounded-full bg-white/10 hover:bg-white/20 text-slate-200 border border-white/15 transition"
+                        >
+                          {tag.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-center gap-2 pt-2">
+                    {[
+                      { idx: 0, label: 'Indian Mythology & History' },
+                      { idx: 1, label: '3D Village Kahani' },
+                      { idx: 2, label: 'Viral Cat Storytelling' }
+                    ].map((s) => (
+                      <button
+                        key={s.idx}
+                        onClick={() => setActiveBannerSlide(s.idx)}
+                        className={`px-3 py-1 rounded-full text-[10px] font-bold transition ${
+                          activeBannerSlide === s.idx ? 'bg-rose-600 text-white' : 'bg-white/10 text-slate-300 hover:bg-white/20'
+                        }`}
+                      >
+                        {s.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              {/* CATEGORY TILES */}
+              <section className="py-8 bg-white border-b border-slate-200">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h2 className="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">
+                        Browse by Visual Prompt Category
+                      </h2>
+                      <p className="text-xs text-slate-500">Click any collection tile below to filter prompt books</p>
+                    </div>
+                    <button
+                      onClick={() => {
+                        setActiveCategory('all');
+                        setSearchQuery('');
+                      }}
+                      className="text-xs font-bold text-rose-600 hover:text-rose-700"
+                    >
+                      View All Categories →
+                    </button>
+                  </div>
+
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                    {[
+                      { id: 'cat-stories', title: 'Cat & Pet Reels', count: '550+ Prompts', img: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=400&q=80' },
+                      { id: '3d-kahani', title: '3D Moral Kahani', count: '650+ Prompts', img: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=400&q=80' },
+                      { id: 'mythology', title: 'Mythology & History', count: '500+ Prompts', img: 'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=400&q=80' },
+                      { id: 'consistency', title: 'Character Lock', count: '1,000+ Prompts', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400&q=80' },
+                      { id: 'luxury', title: 'Luxury & Cars', count: '400+ Prompts', img: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=400&q=80' },
+                      { id: 'bundle', title: 'All 5 Books Pack', count: '3,100+ Prompts', img: 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=400&q=80' }
+                    ].map((cat) => (
+                      <button
+                        key={cat.id}
+                        onClick={() => setActiveCategory(activeCategory === cat.id ? 'all' : cat.id)}
+                        className={`group relative h-28 rounded-xl overflow-hidden text-left border-2 transition-all ${
+                          activeCategory === cat.id ? 'border-rose-600 ring-2 ring-rose-500/30 scale-[1.02]' : 'border-transparent hover:border-slate-300'
+                        }`}
+                      >
+                        <img src={cat.img} onError={handleImgError} alt={cat.title} className="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-3 flex flex-col justify-end">
+                          <div className="text-xs font-extrabold text-white leading-tight">{cat.title}</div>
+                          <div className="text-[10px] font-medium text-amber-300 mt-0.5">{cat.count}</div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              {/* PRODUCT GALLERY GRID */}
+              <section id="catalog" className="py-10 max-w-7xl mx-auto px-4 sm:px-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-200">
+                  <div>
+                    <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                      {activeCategory === 'all' ? 'Featured AI Video Prompt Books (PDF)' : `Filtered Collection (${filteredBooks.length} Books)`}
+                    </h2>
+                    <p className="text-xs text-slate-500 mt-0.5">
+                      Every book includes 9:16 vertical keyframe prompts, camera motion commands &amp; instant PDF download
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    {activeCategory !== 'all' && (
+                      <button onClick={() => setActiveCategory('all')} className="text-xs font-bold text-rose-600 bg-rose-50 border border-rose-200 px-3 py-1.5 rounded-lg">
+                        Clear Filter ✕
+                      </button>
+                    )}
+                    <span className="text-xs font-semibold text-slate-500 bg-white border border-slate-200 px-3 py-1.5 rounded-lg">
+                      {filteredBooks.length} Digital PDFs Available
+                    </span>
+                  </div>
+                </div>
+
+                {filteredBooks.length === 0 ? (
+                  <div className="bg-white border border-slate-200 rounded-2xl p-12 text-center space-y-3 shadow-sm">
+                    <p className="text-sm font-bold text-slate-800">No prompt books matched your search &quot;{searchQuery}&quot;</p>
+                    <button
+                      onClick={() => {
+                        setSearchQuery('');
+                        setActiveCategory('all');
+                      }}
+                      className="bg-rose-600 text-white text-xs font-bold px-5 py-2.5 rounded-lg"
+                    >
+                      Show All PDF Books
+                    </button>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {filteredBooks.map((book) => (
+                      <div
+                        key={book.id}
+                        className={`group rounded-2xl bg-white border transition-all duration-200 flex flex-col overflow-hidden shadow-sm hover:shadow-xl ${
+                          book.isBundle ? 'border-rose-500 ring-2 ring-rose-500/15' : 'border-slate-200 hover:border-slate-300'
+                        }`}
+                      >
+                        <div onClick={() => setPreviewBook(book)} className="relative h-60 w-full bg-slate-900 overflow-hidden cursor-pointer">
+                          <img src={book.coverImage} onError={handleImgError} alt={book.title} className="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent" />
+
+                          <div className="absolute top-3 left-3 flex items-center gap-1.5">
+                            {book.badge && (
+                              <span className={`text-[10px] font-extrabold uppercase tracking-wide px-2.5 py-1 rounded-md shadow-sm ${book.isBundle ? 'bg-rose-600 text-white' : 'bg-white/95 text-slate-900'}`}>
+                                {book.badge}
+                              </span>
+                            )}
+                            <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-black/65 text-white">
+                              9:16 VERTICAL
+                            </span>
+                          </div>
+
+                          <span className="absolute top-3 right-3 text-[10px] font-bold px-2.5 py-1 rounded-md bg-black/75 text-amber-300">
+                            {book.promptsCount} Prompts • {book.pages} Pages
+                          </span>
+
+                          <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-2">
+                            <div>
+                              <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-300 block">
+                                {book.coverTag || 'VERIFIED PDF BOOK'}
+                              </span>
+                              <div className="flex flex-wrap gap-1 mt-1">
+                                {(book.tools || []).slice(0, 3).map((t) => (
+                                  <span key={t} className="text-[9px] font-semibold bg-white/15 text-white px-2 py-0.5 rounded">
+                                    {t}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+
+                            <span className="bg-white/95 group-hover:bg-rose-600 group-hover:text-white text-slate-900 text-[11px] font-bold px-3 py-1.5 rounded-lg shadow-md flex items-center gap-1 transition shrink-0">
+                              <Eye className="w-3.5 h-3.5" />
+                              <span>Look Inside</span>
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+                          <div className="space-y-2.5">
+                            <div className="flex items-center justify-between gap-2">
+                              <button
+                                onClick={() => {
+                                  const cr = creatorsList.find((c) => c.handle === book.creatorHandle) || creatorsList[0];
+                                  setActiveCreatorBioModal(cr);
+                                }}
+                                className="flex items-center gap-2 text-left"
+                              >
+                                <img src={book.creatorAvatar} onError={handleImgError} alt={book.creatorName} className="w-6 h-6 rounded-full object-cover border border-slate-300" />
+                                <span className="text-xs font-bold text-slate-700 hover:text-rose-600 transition truncate max-w-[140px]">
+                                  {book.creatorName}
+                                </span>
+                                <BadgeCheck className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                              </button>
+
+                              <div className="flex items-center gap-1 text-xs font-bold text-amber-500">
+                                <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                                <span className="text-slate-800">{book.rating}</span>
+                                <span className="text-slate-400 font-normal">({book.reviewsCount})</span>
+                              </div>
+                            </div>
+
+                            <h3 onClick={() => setPreviewBook(book)} className="text-base font-extrabold text-slate-900 group-hover:text-rose-600 transition cursor-pointer leading-snug line-clamp-2">
+                              {book.title}
+                            </h3>
+
+                            <p className="text-xs text-slate-600 leading-relaxed line-clamp-2">{book.subtitle}</p>
+                          </div>
+
+                          <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between gap-3">
+                            <div>
+                              <div className="flex items-baseline gap-1.5">
+                                <span className="text-xl font-black text-slate-950">₹{book.price}</span>
+                                <span className="text-xs text-slate-400 line-through font-medium">₹{book.mrp}</span>
+                              </div>
+                              <span className="text-[10px] text-emerald-600 font-bold">✓ Instant PDF Download</span>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                              <button onClick={() => setPreviewBook(book)} className="px-3 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition">
+                                Sample
+                              </button>
+                              <button onClick={() => handleOpenCheckout(book)} className="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold transition shadow-sm">
+                                Buy Now
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </section>
+
+              {/* VERIFIED CREATORS BAR */}
+              <section className="py-10 border-t border-slate-200 bg-white">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                      <h2 className="text-lg font-extrabold text-slate-900">Top Contributing AI Video Creators</h2>
+                      <p className="text-xs text-slate-500">Click any creator to view their official PromptBazar portfolio and follower discount codes</p>
+                    </div>
+                    <button
+                      onClick={() => {
+                        setActiveView('seller-hub');
+                        setCreatorStudioTab('publish');
+                      }}
+                      className="text-xs font-bold text-rose-600 hover:text-rose-700 flex items-center gap-1 self-start sm:self-auto"
+                    >
+                      <span>Sell Your Prompts</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {creatorsList.slice(0, 3).map((cr) => (
+                      <div
+                        key={cr.id}
+                        onClick={() => setActiveCreatorBioModal(cr)}
+                        className="bg-[#F8FAFC] border border-slate-200 hover:border-slate-400 rounded-2xl p-4 flex items-center justify-between gap-4 cursor-pointer transition shadow-sm"
+                      >
+                        <div className="flex items-center gap-3.5 min-w-0">
+                          <img src={cr.avatarUrl} onError={handleImgError} alt={cr.name} className="w-12 h-12 rounded-full object-cover border border-slate-300 shrink-0" />
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-1.5">
+                              <span className="font-bold text-slate-900 text-sm truncate">{cr.name}</span>
+                              <BadgeCheck className="w-4 h-4 text-blue-600 shrink-0" />
+                            </div>
+                            <div className="text-xs text-slate-500 truncate">@{cr.handle} • {cr.followers}</div>
+                            <div className="text-[11px] text-emerald-600 font-bold mt-0.5">{cr.totalSalesCount}+ Books Sold</div>
+                          </div>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              {/* BUYER FAQ */}
+              <section className="py-12 border-t border-slate-200 max-w-3xl mx-auto px-4 sm:px-6">
+                <div className="text-center mb-8">
+                  <h2 className="text-xl font-extrabold text-slate-900">Frequently Asked Questions</h2>
+                  <p className="text-xs text-slate-500 mt-1">Everything you need to know about downloading and using PromptBazar PDF books</p>
+                </div>
+
+                <div className="space-y-2.5">
+                  {[
+                    {
+                      q: 'How will I receive the PDF book after payment?',
+                      a: 'Immediately after your UPI or Card payment is verified, the "Download PDF Book" and "Open Online Prompt Reader" buttons unlock right on your screen. A backup copy is also sent to your email.'
+                    },
+                    {
+                      q: 'Which AI video tools do these prompts work with?',
+                      a: 'All prompts are formatted for 9:16 vertical Reels & Shorts and work seamlessly on Kling AI 1.6, Hailuo MiniMax, Midjourney v6, Leonardo AI, Runway Gen-3, and Luma Dream Machine.'
+                    },
+                    {
+                      q: 'Can I copy prompts directly on my mobile phone?',
+                      a: 'Yes! Along with the downloadable .PDF book, you get access to our interactive Mobile Prompt Reader so you can copy any scene prompt in 1 tap.'
+                    },
+                    {
+                      q: 'How can I sell my own AI Prompt PDF on PromptBazar?',
+                      a: 'Click "Sell Your Prompts" in the top menu, upload your PDF book, and add your UPI ID. Once approved, you get a custom storefront link for your YouTube Shorts & Instagram bio.'
+                    }
+                  ].map((item, idx) => (
+                    <div key={idx} className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                      <button
+                        onClick={() => setOpenFaq(openFaq === idx ? -1 : idx)}
+                        className="w-full px-5 py-4 text-left flex items-center justify-between gap-4 text-xs sm:text-sm font-bold text-slate-900 hover:bg-slate-50 transition"
+                      >
+                        <span>{item.q}</span>
+                        <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 transition-transform ${openFaq === idx ? 'rotate-180 text-rose-600' : ''}`} />
+                      </button>
+                      {openFaq === idx && (
+                        <div className="px-5 pb-4 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+                          {item.a}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </section>
+            </main>
+          )}
+
+          {/* VIEW 2: CREATOR STUDIO */}
+          {activeView === 'seller-hub' && (
+            <section className="py-10 max-w-7xl mx-auto px-4 sm:px-6 space-y-8 bg-[#0B0D13] text-slate-100 rounded-3xl my-6 border border-slate-800 shadow-xl">
+              <div className="bg-[#12151E] border border-[#1F2433] rounded-2xl p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+                <div className="flex items-center gap-4">
+                  <img src={currentSeller.avatarUrl} onError={handleImgError} alt={currentSeller.name} className="w-14 h-14 rounded-full object-cover border-2 border-indigo-500" />
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h1 className="text-lg sm:text-xl font-bold text-white">{currentSeller.name}</h1>
+                      <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                        Verified Contributor
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-0.5">
+                      Store Link: <span className="text-indigo-400 font-mono">promptbazar.in/@{currentSeller.handle}</span> • UPI: <span className="text-slate-300 font-mono">{currentSeller.upiId}</span>
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2">
+                  <div className="flex items-center bg-[#0B0D13] border border-[#1F2433] rounded-lg p-1 gap-1">
+                    {creatorsList.map((cr) => (
+                      <button
+                        key={cr.id}
+                        onClick={() => handleSelectCreatorAccount(cr)}
+                        className={`px-2.5 py-1 rounded-md text-xs font-medium transition ${
+                          currentSeller.handle === cr.handle ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'
+                        }`}
+                      >
+                        @{cr.handle}
+                      </button>
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={() => setActiveCreatorBioModal(currentSeller)}
+                    className="bg-white/5 hover:bg-white/10 text-white border border-white/10 text-xs font-medium px-3.5 py-2 rounded-lg flex items-center gap-1.5 transition"
+                  >
+                    <Eye className="w-3.5 h-3.5 text-indigo-400" />
+                    <span>Preview Bio-Link</span>
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 border-b border-[#1F2433] pb-3 overflow-x-auto">
+                {[
+                  { id: 'overview', label: 'Earnings & Split Payouts (92%)' },
+                  { id: 'publish', label: 'Upload New PDF Book' },
+                  { id: 'coupons', label: 'Promo Codes & Calculator' }
+                ].map((t) => (
+                  <button
+                    key={t.id}
+                    onClick={() => setCreatorStudioTab(t.id)}
+                    className={`px-4 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition ${
+                      creatorStudioTab === t.id ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white bg-[#12151E] border border-[#1F2433]'
+                    }`}
+                  >
+                    {t.label}
+                  </button>
+                ))}
+              </div>
+
+              {creatorStudioTab === 'overview' && (
+                <div className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div className="bg-[#12151E] border border-[#1F2433] rounded-2xl p-5">
+                      <span className="text-xs text-slate-400">Your Net Earnings (92%)</span>
+                      <div className="text-2xl font-bold text-white mt-1.5">
+                        ₹{(currentSeller.autoSettled92 || 0).toLocaleString('en-IN')}
+                      </div>
+                      <span className="text-[11px] text-emerald-400 mt-1 block">Settled directly to {currentSeller.upiId}</span>
+                    </div>
+
+                    <div className="bg-[#12151E] border border-[#1F2433] rounded-2xl p-5">
+                      <span className="text-xs text-slate-400">Total Books Sold</span>
+                      <div className="text-2xl font-bold text-white mt-1.5">{currentSeller.totalSalesCount || 0}</div>
+                      <span className="text-[11px] text-slate-500 mt-1 block">
+                        Gross Sales: ₹{(currentSeller.grossRevenue || 0).toLocaleString('en-IN')}
+                      </span>
+                    </div>
+
+                    <div className="bg-[#12151E] border border-[#1F2433] rounded-2xl p-5">
+                      <span className="text-xs text-slate-400">Commission Split Structure</span>
+                      <div className="text-sm font-bold text-white mt-2">92% You • 5% Platform • 3% Gateway</div>
+                      <span className="text-[11px] text-slate-500 mt-1 block">Automatic split on every order</span>
+                    </div>
+
+                    <div className="bg-[#12151E] border border-[#1F2433] rounded-2xl p-5 flex flex-col justify-between">
+                      <span className="text-xs text-slate-400">Share Bio-Link in Reels/Shorts</span>
+                      <div className="font-mono text-xs text-slate-200 truncate my-1.5">promptbazar.in/@{currentSeller.handle}</div>
+                      <button
+                        onClick={() => copyToClipboard(`https://promptbazar.in/@${currentSeller.handle}`, 'Bio-link copied!')}
+                        className="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium py-1.5 rounded-lg flex items-center justify-center gap-1.5 transition"
+                      >
+                        <Copy className="w-3.5 h-3.5" />
+                        <span>Copy Link</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div className="lg:col-span-5 bg-[#12151E] border border-[#1F2433] rounded-2xl p-5 space-y-4">
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-sm font-bold text-white">Your Books</h3>
+                        <button onClick={() => setCreatorStudioTab('publish')} className="text-xs font-semibold text-indigo-400 hover:text-indigo-300">
+                          + Upload New PDF
+                        </button>
+                      </div>
+
+                      <div className="space-y-2.5">
+                        {pendingPdfs
+                          .filter((p) => p.creatorHandle === currentSeller.handle)
+                          .map((item) => (
+                            <div key={item.id} className="bg-[#0B0D13] border border-amber-500/30 rounded-xl p-3 flex items-center justify-between gap-2">
+                              <div className="min-w-0">
+                                <div className="font-semibold text-white text-xs truncate">{item.title}</div>
+                                <div className="text-[11px] text-slate-400">₹{item.price} • {item.uploadedFileName}</div>
+                              </div>
+                              <span className="text-[10px] font-medium text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded shrink-0">Pending Approval</span>
+                            </div>
+                          ))}
+
+                        {productsList
+                          .filter((p) => p.creatorHandle === currentSeller.handle)
+                          .map((item) => (
+                            <div key={item.id} className="bg-[#0B0D13] border border-[#1F2433] rounded-xl p-3 flex items-center justify-between gap-2">
+                              <div className="min-w-0">
+                                <div className="font-semibold text-white text-xs truncate">{item.title}</div>
+                                <div className="text-[11px] text-slate-400">Price: ₹{item.price} • Your 92%: ₹{(item.price * 0.92).toFixed(1)}</div>
+                              </div>
+                              <span className="text-[10px] font-medium text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded shrink-0">Live</span>
+                            </div>
+                          ))}
+                      </div>
+                    </div>
+
+                    <div className="lg:col-span-7 bg-[#12151E] border border-[#1F2433] rounded-2xl p-5 space-y-4">
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-sm font-bold text-white">Recent 92% Split Payouts</h3>
+                        <span className="text-[11px] text-slate-400">Direct UPI Settlement</span>
+                      </div>
+
+                      <div className="space-y-2">
+                        {splitTransactions.map((tx) => (
+                          <div key={tx.id} className="bg-[#0B0D13] border border-[#1F2433] rounded-xl p-3 flex items-center justify-between gap-3 text-xs">
+                            <div className="min-w-0">
+                              <div className="font-semibold text-white truncate">
+                                +₹{tx.creatorPayout92} <span className="text-slate-400 font-normal">(92% of ₹{tx.amount})</span> • <span className="font-mono text-emerald-400">{tx.creatorUpi}</span>
+                              </div>
+                              <div className="text-[11px] text-slate-500 truncate mt-0.5">
+                                {tx.id} • {tx.pdfTitle} • Buyer: {tx.buyerName}
+                              </div>
+                            </div>
+                            <button onClick={() => setInvoiceModalTx(tx)} className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 text-[11px] font-medium shrink-0">
+                              Receipt
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {creatorStudioTab === 'publish' && (
+                <div className="max-w-2xl bg-[#12151E] border border-[#1F2433] rounded-2xl p-6 sm:p-8">
+                  <div className="border-b border-[#1F2433] pb-4 mb-6">
+                    <h2 className="text-lg font-bold text-white">Upload New Prompt PDF Book</h2>
+                    <p className="text-xs text-slate-400 mt-0.5">Attach your PDF file and set your price. You receive 92% on every sale directly to your UPI ID.</p>
+                  </div>
+
+                  <form onSubmit={handlePublishCreatorPdf} className="space-y-4">
+                    <label className="block bg-[#0B0D13] border border-dashed border-[#2A3147] hover:border-indigo-500 rounded-xl p-5 cursor-pointer transition">
+                      <div className="flex items-center justify-between gap-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+                            <Upload className="w-4 h-4" />
+                          </div>
+                          <div>
+                            <div className="text-xs font-semibold text-white">
+                              {uploadedPdfFile ? `${uploadedPdfFile.name} (${uploadedPdfFile.size})` : 'Choose .PDF Book File'}
+                            </div>
+                            <div className="text-[11px] text-slate-500">Buyer name &amp; mobile watermark is automatically stamped on download</div>
+                          </div>
+                        </div>
+                        <span className="bg-white/5 text-slate-200 text-xs font-medium px-3 py-1.5 rounded-lg">Browse PDF</span>
+                      </div>
+                      <input type="file" accept=".pdf,application/pdf" onChange={handlePdfFileSelect} className="hidden" />
+                    </label>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-medium text-slate-300 mb-1.5">Your Name</label>
+                        <input type="text" required value={newSellerName} onChange={(e) => setNewSellerName(e.target.value)} className="w-full bg-[#0B0D13] border border-[#262C3F] rounded-lg px-3 py-2 text-xs text-white outline-none" />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-medium text-slate-300 mb-1.5">Storefront Handle (@username)</label>
+                        <input type="text" required value={newSellerHandle} onChange={(e) => setNewSellerHandle(e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, ''))} className="w-full bg-[#0B0D13] border border-[#262C3F] rounded-lg px-3 py-2 text-xs text-white font-mono outline-none" />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-medium text-slate-300 mb-1.5">Social Platform</label>
+                        <select value={newSellerPlatform} onChange={(e) => setNewSellerPlatform(e.target.value)} className="w-full bg-[#0B0D13] border border-[#262C3F] rounded-lg px-3 py-2 text-xs text-white outline-none">
+                          <option value="YouTube Shorts">YouTube Shorts</option>
+                          <option value="Instagram Reels">Instagram Reels</option>
+                          <option value="Facebook Reels">Facebook Reels</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-xs font-medium text-emerald-400 mb-1.5">Your UPI ID (For 92% Instant Payout)</label>
+                        <input type="text" required value={newSellerUpi} onChange={(e) => setNewSellerUpi(e.target.value)} className="w-full bg-[#0B0D13] border border-emerald-500/30 rounded-lg px-3 py-2 text-xs text-white font-mono outline-none" />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-medium text-slate-300 mb-1.5">PDF Book Title</label>
+                      <input type="text" required value={newPdfTitle} onChange={(e) => setNewPdfTitle(e.target.value)} placeholder="e.g. 500+ Viral 3D Hindi Kahani Prompts" className="w-full bg-[#0B0D13] border border-[#262C3F] rounded-lg px-3 py-2 text-xs text-white outline-none" />
+                    </div>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      <div>
+                        <label className="block text-xs font-medium text-slate-400 mb-1">Selling Price (₹)</label>
+                        <input type="number" min="49" required value={newPdfPrice} onChange={(e) => setNewPdfPrice(e.target.value)} className="w-full bg-[#0B0D13] border border-[#262C3F] rounded-lg px-3 py-2 text-xs text-white outline-none" />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-medium text-slate-400 mb-1">MRP (₹)</label>
+                        <input type="number" min="99" value={newPdfMrp} onChange={(e) => setNewPdfMrp(e.target.value)} className="w-full bg-[#0B0D13] border border-[#262C3F] rounded-lg px-3 py-2 text-xs text-white outline-none" />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-medium text-slate-400 mb-1">Total Pages</label>
+                        <input type="number" value={newPdfPages} onChange={(e) => setNewPdfPages(e.target.value)} className="w-full bg-[#0B0D13] border border-[#262C3F] rounded-lg px-3 py-2 text-xs text-white outline-none" />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-medium text-slate-400 mb-1">Prompts Count</label>
+                        <input type="text" value={newPdfPromptsCount} onChange={(e) => setNewPdfPromptsCount(e.target.value)} className="w-full bg-[#0B0D13] border border-[#262C3F] rounded-lg px-3 py-2 text-xs text-white outline-none" />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-medium text-slate-300 mb-1.5">Sample Prompt (Shown in &quot;Sample&quot; Preview)</label>
+                      <textarea rows={3} value={newPdfSamplePrompt} onChange={(e) => setNewPdfSamplePrompt(e.target.value)} placeholder="Paste 1 sample 9:16 vertical prompt so buyers can test your quality..." className="w-full bg-[#0B0D13] border border-[#262C3F] rounded-lg px-3 py-2 text-xs text-white font-mono outline-none" />
+                    </div>
+
+                    <button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs py-3 rounded-xl transition">
+                      Submit PDF Book for Storefront
+                    </button>
+                  </form>
+                </div>
+              )}
+
+              {creatorStudioTab === 'coupons' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-[#12151E] border border-[#1F2433] rounded-2xl p-6 space-y-4">
+                    <h3 className="text-sm font-bold text-white">Follower Promo Codes</h3>
+                    <p className="text-xs text-slate-400">
+                      Create custom discount codes (e.g. <code className="text-indigo-300">ROHIT50</code>) to share in your Reels &amp; Shorts.
+                    </p>
+
+                    <form onSubmit={handleCreateCreatorCoupon} className="flex gap-2">
+                      <input type="text" required maxLength={12} value={newCouponCode} onChange={(e) => setNewCouponCode(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ''))} placeholder="CODE (e.g. ROHIT50)" className="flex-1 bg-[#0B0D13] border border-[#262C3F] rounded-lg px-3 py-2 text-xs text-white font-mono uppercase outline-none" />
+                      <select value={newCouponDiscount} onChange={(e) => setNewCouponDiscount(e.target.value)} className="bg-[#0B0D13] border border-[#262C3F] rounded-lg px-3 py-2 text-xs text-white outline-none">
+                        <option value="20">₹20 OFF</option>
+                        <option value="30">₹30 OFF</option>
+                        <option value="50">₹50 OFF</option>
+                        <option value="100">₹100 OFF</option>
+                      </select>
+                      <button type="submit" className="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs px-4 py-2 rounded-lg">Add</button>
+                    </form>
+
+                    <div className="space-y-2 pt-2">
+                      {couponsList
+                        .filter((cp) => cp.creatorHandle === currentSeller.handle || cp.creatorHandle === 'ALL')
+                        .map((cp) => (
+                          <div key={cp.code} className="bg-[#0B0D13] border border-[#1F2433] rounded-xl px-3.5 py-2.5 flex items-center justify-between text-xs">
+                            <div>
+                              <span className="font-mono font-bold text-indigo-400 mr-2">{cp.code}</span>
+                              <span className="text-slate-300">₹{cp.discount} OFF</span>
+                              <span className="text-slate-500 ml-2">• {cp.uses || 0} uses</span>
+                            </div>
+                            {cp.creatorHandle !== 'ALL' && (
+                              <button onClick={() => handleDeleteCoupon(cp.code)} className="text-slate-500 hover:text-rose-400">
+                                <X className="w-3.5 h-3.5" />
+                              </button>
+                            )}
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+
+                  <div className="bg-[#12151E] border border-[#1F2433] rounded-2xl p-6 space-y-5">
+                    <h3 className="text-sm font-bold text-white">92% Creator Earnings Calculator</h3>
+                    <div>
+                      <div className="flex justify-between text-xs mb-1.5">
+                        <span className="text-slate-400">Book Price</span>
+                        <span className="font-semibold text-white">₹{calcPrice} (You get ₹{(calcPrice * 0.92).toFixed(1)}/sale)</span>
+                      </div>
+                      <input type="range" min="99" max="999" step="10" value={calcPrice} onChange={(e) => setCalcPrice(Number(e.target.value))} className="w-full accent-indigo-500" />
+                    </div>
+                    <div>
+                      <div className="flex justify-between text-xs mb-1.5">
+                        <span className="text-slate-400">Daily Copies Sold</span>
+                        <span className="font-semibold text-white">{calcDailySales} sales/day</span>
+                      </div>
+                      <input type="range" min="1" max="100" step="1" value={calcDailySales} onChange={(e) => setCalcDailySales(Number(e.target.value))} className="w-full accent-indigo-500" />
+                    </div>
+                    <div className="bg-[#0B0D13] border border-[#1F2433] rounded-xl p-4 flex items-center justify-between">
+                      <div>
+                        <div className="text-xs text-slate-400">Estimated Monthly Payout (92%)</div>
+                        <div className="text-2xl font-bold text-emerald-400 mt-0.5">
+                          ₹{Math.round(calcPrice * 0.92 * calcDailySales * 30).toLocaleString('en-IN')}
+                        </div>
+                      </div>
+                      <span className="text-[11px] font-mono text-slate-500">Direct UPI</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </section>
+          )}
+
+          {/* VIEW 3: STAFF ADMIN PANEL (PIN 2026) */}
+          {activeView === 'admin-panel' && isAdminAuthenticated && (
+            <section className="py-10 max-w-7xl mx-auto px-4 sm:px-6 space-y-8 bg-[#0B0D13] text-slate-100 rounded-3xl my-6 border border-slate-800 shadow-xl">
+              <div className="bg-[#12151E] border border-[#1F2433] rounded-2xl p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <span className="text-[11px] font-mono uppercase text-amber-400">Owner Administration (PIN Protected)</span>
+                  <h1 className="text-xl font-bold text-white mt-0.5">5% Platform Commission Ledger &amp; PDF Approvals</h1>
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <button
+                    onClick={() => {
+                      localStorage.clear();
+                      window.location.reload();
+                    }}
+                    className="bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 text-xs font-medium px-3.5 py-2 rounded-lg"
+                  >
+                    Reset Demo Data
+                  </button>
+                  <button
+                    onClick={() => {
+                      setIsAdminAuthenticated(false);
+                      setActiveView('marketplace');
+                      showToast('Exited Staff Admin');
+                    }}
+                    className="bg-white/5 hover:bg-white/10 text-slate-200 border border-white/10 text-xs font-medium px-4 py-2 rounded-lg flex items-center gap-1.5"
+                  >
+                    <Lock className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Lock &amp; Exit</span>
+                  </button>
+                </div>
+              </div>
+
+              {(() => {
+                const totalGmv = splitTransactions.reduce((acc, t) => acc + t.amount, 0) + 189400;
+                return (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div className="bg-[#12151E] border border-[#1F2433] rounded-2xl p-5">
+                      <span className="text-xs text-slate-400">Total Store Sales (GMV)</span>
+                      <div className="text-2xl font-bold text-white mt-1">₹{totalGmv.toLocaleString('en-IN')}</div>
+                    </div>
+                    <div className="bg-[#12151E] border border-indigo-500/30 rounded-2xl p-5">
+                      <span className="text-xs text-indigo-300 font-medium">Your 5% Platform Earnings</span>
+                      <div className="text-2xl font-bold text-indigo-400 mt-1">₹{(totalGmv * 0.05).toLocaleString('en-IN')}</div>
+                    </div>
+                    <div className="bg-[#12151E] border border-[#1F2433] rounded-2xl p-5">
+                      <span className="text-xs text-slate-400">Creators 92% Auto-Split</span>
+                      <div className="text-2xl font-bold text-emerald-400 mt-1">₹{(totalGmv * 0.92).toLocaleString('en-IN')}</div>
+                    </div>
+                    <div className="bg-[#12151E] border border-[#1F2433] rounded-2xl p-5">
+                      <span className="text-xs text-slate-400">Gateway Fee (3%)</span>
+                      <div className="text-2xl font-bold text-slate-300 mt-1">₹{(totalGmv * 0.03).toLocaleString('en-IN')}</div>
+                    </div>
+                  </div>
+                );
+              })()}
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="bg-[#12151E] border border-[#1F2433] rounded-2xl p-6 space-y-4">
+                  <div className="flex items-center justify-between border-b border-[#1F2433] pb-3">
+                    <h3 className="text-sm font-bold text-white">Pending Creator PDF Submissions ({pendingPdfs.length})</h3>
+                  </div>
+
+                  {pendingPdfs.length === 0 ? (
+                    <p className="text-xs text-slate-500 py-6 text-center">No pending PDFs awaiting review.</p>
+                  ) : (
+                    <div className="space-y-3">
+                      {pendingPdfs.map((pdf) => (
+                        <div key={pdf.id} className="bg-[#0B0D13] border border-[#1F2433] rounded-xl p-4 space-y-3">
+                          <div className="flex items-start justify-between gap-2">
+                            <div>
+                              <div className="text-xs font-bold text-white">{pdf.title}</div>
+                              <div className="text-[11px] text-slate-400 mt-0.5">
+                                By @{pdf.creatorHandle} • ₹{pdf.price} • {pdf.uploadedFileName}
+                              </div>
+                            </div>
+                            <button onClick={() => setPreviewBook(pdf)} className="text-xs text-indigo-400 hover:underline">
+                              Preview
+                            </button>
+                          </div>
+                          <div className="flex gap-2">
+                            <button onClick={() => handleAdminApprovePdf(pdf.id)} className="flex-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold text-xs py-2 rounded-lg">
+                              Approve &amp; Publish
+                            </button>
+                            <button onClick={() => handleAdminRejectPdf(pdf.id)} className="px-4 bg-white/5 hover:bg-rose-500/20 text-slate-300 hover:text-rose-300 text-xs rounded-lg">
+                              Reject
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className="bg-[#12151E] border border-[#1F2433] rounded-2xl p-6 space-y-4">
+                  <h3 className="text-sm font-bold text-white border-b border-[#1F2433] pb-3">Store Settings &amp; PIN</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                    <div>
+                      <label className="block text-slate-400 mb-1">Business Name</label>
+                      <input type="text" value={businessLegalName} onChange={(e) => setBusinessLegalName(e.target.value)} className="w-full bg-[#0B0D13] border border-[#262C3F] rounded-lg px-3 py-2 text-white outline-none" />
+                    </div>
+                    <div>
+                      <label className="block text-slate-400 mb-1">Office Address</label>
+                      <input type="text" value={businessAddress} onChange={(e) => setBusinessAddress(e.target.value)} className="w-full bg-[#0B0D13] border border-[#262C3F] rounded-lg px-3 py-2 text-white outline-none" />
+                    </div>
+                    <div>
+                      <label className="block text-slate-400 mb-1">WhatsApp Support</label>
+                      <input type="text" value={supportWhatsapp} onChange={(e) => setSupportWhatsapp(e.target.value.replace(/\D/g, ''))} className="w-full bg-[#0B0D13] border border-[#262C3F] rounded-lg px-3 py-2 text-white font-mono outline-none" />
+                    </div>
+                    <div>
+                      <label className="block text-slate-400 mb-1">Staff Login PIN</label>
+                      <input type="text" value={adminSecretPin} onChange={(e) => setAdminSecretPin(e.target.value)} className="w-full bg-[#0B0D13] border border-[#262C3F] rounded-lg px-3 py-2 text-amber-300 font-mono outline-none" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* FOOTER */}
+          <footer className="bg-[#080A0F] border-t border-[#1F2433] py-12 text-slate-400 text-xs">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-[#1F2433]">
+                <div className="md:col-span-2 space-y-2.5">
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 rounded-md bg-indigo-600 flex items-center justify-center">
+                      <BookOpen className="w-3.5 h-3.5 text-white" />
+                    </div>
+                    <span className="font-bold text-sm text-white">PromptBazar.in</span>
+                  </div>
+                  <p className="text-slate-500 max-w-md leading-relaxed">
+                    India’s trusted digital bookstore for AI video &amp; short-form storytelling prompt books. Instant delivery after UPI payment.
+                  </p>
+                  <div className="text-[11px] text-slate-500 pt-1">
+                    <span className="text-slate-300 font-medium">{businessLegalName}</span> • {businessAddress}
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-white mb-2.5">Quick Links</h4>
+                  <ul className="space-y-2">
+                    <li><button onClick={() => setActiveView('marketplace')} className="hover:text-white transition">Browse Prompt Books</button></li>
+                    <li><button onClick={() => setShowPurchasesModal(true)} className="hover:text-white transition">My Purchased Books</button></li>
+                    <li><button onClick={() => setActiveView('seller-hub')} className="hover:text-white transition">Sell Your Prompts</button></li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-white mb-2.5">Policies &amp; Help</h4>
+                  <ul className="space-y-2">
+                    <li><button onClick={() => setLegalModal('privacy')} className="hover:text-white">Privacy Policy</button></li>
+                    <li><button onClick={() => setLegalModal('terms')} className="hover:text-white">Terms &amp; Disclaimer</button></li>
+                    <li><button onClick={() => setLegalModal('copyright')} className="hover:text-white">Copyright &amp; Anti-Piracy</button></li>
+                    <li><button onClick={() => setLegalModal('contact')} className="hover:text-white">Contact Support</button></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
+                <p>© {new Date().getFullYear()} {businessLegalName}. All rights reserved.</p>
+                <div className="flex items-center gap-5">
+                  <a href={`https://wa.me/${supportWhatsapp}`} target="_blank" rel="noreferrer" className="text-emerald-400 hover:text-emerald-300 font-medium flex items-center gap-1.5">
+                    <MessageCircle className="w-3.5 h-3.5" />
+                    <span>WhatsApp Helpdesk</span>
+                  </a>
+                  <button
+                    onClick={() => {
+                      if (isAdminAuthenticated) {
+                        setActiveView('admin-panel');
+                      } else {
+                        setAdminAuthError('');
+                        setAdminPinInput('');
+                        setShowAdminLoginModal(true);
+                      }
+                    }}
+                    className="hover:text-slate-300 flex items-center gap-1 text-slate-600"
+                  >
+                    <Lock className="w-3 h-3" />
+                    <span>Staff Login</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </footer>
+
+          {/* MODAL: LOOK INSIDE SAMPLE */}
+          {previewBook && (
+            <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+              <div className="bg-[#12151E] border border-[#262C3F] rounded-2xl max-w-2xl w-full max-h-[88vh] flex flex-col overflow-hidden shadow-2xl">
+                <div className="px-6 py-4 bg-[#0B0D13] border-b border-[#1F2433] flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <BookOpen className="w-4 h-4 text-indigo-400" />
+                    <span className="text-xs font-semibold text-slate-300">Book Sample &amp; Chapters Preview</span>
+                  </div>
+                  <button onClick={() => setPreviewBook(null)} className="p-1.5 rounded-lg bg-white/5 text-slate-400 hover:text-white">
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+
+                <div className="p-6 overflow-y-auto space-y-6 text-xs">
+                  <div className="flex flex-col sm:flex-row gap-5 items-center sm:items-start bg-[#0B0D13] p-4 rounded-xl border border-[#1F2433]">
+                    <img src={previewBook.coverImage} onError={handleImgError} alt={previewBook.title} className="w-24 h-32 rounded-lg object-cover border border-white/15 shrink-0 shadow-md" />
+                    <div className="space-y-2 text-center sm:text-left">
+                      <span className="text-[10px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
+                        {previewBook.pages} Pages • {previewBook.promptsCount} Prompts
+                      </span>
+                      <h3 className="text-base font-bold text-white">{previewBook.title}</h3>
+                      <p className="text-slate-400 leading-relaxed">{previewBook.subtitle}</p>
+                      <div className="flex items-center justify-center sm:justify-start gap-2 pt-1">
+                        <img src={previewBook.creatorAvatar} onError={handleImgError} alt={previewBook.creatorName} className="w-5 h-5 rounded-full object-cover" />
+                        <span className="text-slate-300 font-medium">{previewBook.creatorName}</span>
+                        <span className="text-slate-500">(@{previewBook.creatorHandle})</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 className="font-semibold text-white mb-2.5">What’s Inside This PDF Book</h4>
+                    <div className="bg-[#0B0D13] border border-[#1F2433] rounded-xl p-4 space-y-2">
+                      {(previewBook.chapters || []).map((chap) => (
+                        <div key={chap} className="flex items-start gap-2 text-slate-300">
+                          <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                          <span>{chap}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 className="font-semibold text-white mb-2.5">Sample Prompts from the Book (Try Copying)</h4>
+                    <div className="space-y-3">
+                      {(previewBook.samplePrompts || []).map((sample, idx) => (
+                        <div key={sample.sceneTitle} className="bg-[#0B0D13] border border-[#1F2433] rounded-xl p-4 space-y-2.5">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="font-semibold text-white">{sample.sceneTitle}</span>
+                            <button
+                              onClick={() => {
+                                copyToClipboard(`${sample.imagePrompt}\n\n${sample.videoMotionPrompt}`, 'Sample prompt copied!');
+                                setCopiedSampleIndex(idx);
+                                setTimeout(() => setCopiedSampleIndex(null), 2000);
+                              }}
+                              className="bg-white/5 hover:bg-white/10 text-slate-200 px-2.5 py-1 rounded-md flex items-center gap-1"
+                            >
+                              {copiedSampleIndex === idx ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                              <span>{copiedSampleIndex === idx ? 'Copied' : 'Copy Sample'}</span>
+                            </button>
+                          </div>
+                          <p className="font-mono text-[11px] text-slate-300 leading-relaxed">{sample.imagePrompt}</p>
+                          <p className="font-mono text-[11px] text-indigo-300 leading-relaxed pt-1 border-t border-white/5">{sample.videoMotionPrompt}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="px-6 py-4 bg-[#0B0D13] border-t border-[#1F2433] flex items-center justify-between">
+                  <div>
+                    <span className="text-xl font-bold text-white">₹{previewBook.price}</span>
+                    <span className="text-xs text-slate-500 line-through ml-2">₹{previewBook.mrp}</span>
+                  </div>
+                  <button onClick={() => handleOpenCheckout(previewBook)} className="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs px-6 py-3 rounded-xl transition shadow-md">
+                    Buy Full PDF Book • ₹{previewBook.price}
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* MODAL: CHECKOUT */}
+          {checkoutBook && (
+            <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+              <div className="bg-[#12151E] border border-[#262C3F] rounded-2xl w-full max-w-md overflow-hidden shadow-2xl">
+                <div className="px-6 py-4 bg-[#0B0D13] border-b border-[#1F2433] flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                    <span className="font-bold text-white text-sm">
+                      {paymentStep === 'success' ? 'Download Ready' : 'Instant PDF Checkout'}
+                    </span>
+                  </div>
+                  <button onClick={() => setCheckoutBook(null)} className="p-1.5 rounded-lg bg-white/5 text-slate-400 hover:text-white">
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+
+                {paymentStep === 'form' && (
+                  <form onSubmit={handleCompletePayment} className="p-6 space-y-4 text-xs">
+                    <div className="bg-[#0B0D13] border border-[#1F2433] rounded-xl p-3.5 flex items-center gap-3.5">
+                      <img src={checkoutBook.coverImage} onError={handleImgError} alt={checkoutBook.title} className="w-12 h-16 rounded object-cover border border-white/10 shrink-0" />
+                      <div className="min-w-0 flex-1">
+                        <h4 className="font-bold text-white text-xs sm:text-sm truncate">{checkoutBook.title}</h4>
+                        <div className="text-[11px] text-slate-400 mt-0.5">By {checkoutBook.creatorName} • {checkoutBook.pages} Pages</div>
+                        <div className="flex items-baseline gap-1.5 mt-1">
+                          <span className="text-sm font-bold text-emerald-400">₹{checkoutBook.price}</span>
+                          <span className="text-[11px] text-slate-500 line-through">₹{checkoutBook.mrp}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between bg-[#0B0D13] border border-[#1F2433] rounded-xl px-3.5 py-2.5">
+                      <span className="text-[11px] text-slate-400">Supported Payment</span>
+                      <div className="flex items-center gap-1.5 text-[10px] font-semibold">
+                        <span className="bg-white/10 text-white px-2 py-0.5 rounded">GPay</span>
+                        <span className="bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded">PhonePe</span>
+                        <span className="bg-sky-500/20 text-sky-300 px-2 py-0.5 rounded">Paytm</span>
+                        <span className="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded">UPI / Cards</span>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      <div>
+                        <label className="block font-medium text-slate-300 mb-1">Your Full Name</label>
+                        <input type="text" required value={buyerName} onChange={(e) => setBuyerName(e.target.value)} placeholder="Enter your name" className="w-full bg-[#0B0D13] border border-[#262C3F] rounded-lg px-3.5 py-2.5 text-white outline-none" />
+                      </div>
+                      <div>
+                        <label className="block font-medium text-slate-300 mb-1">WhatsApp Mobile Number</label>
+                        <div className="flex">
+                          <span className="bg-[#0B0D13] border border-r-0 border-[#262C3F] rounded-l-lg px-3 flex items-center text-slate-400 font-mono">+91</span>
+                          <input type="tel" required maxLength={10} value={buyerPhone} onChange={(e) => setBuyerPhone(e.target.value.replace(/\D/g, ''))} placeholder="10-digit mobile number" className="w-full bg-[#0B0D13] border border-[#262C3F] rounded-r-lg px-3.5 py-2.5 text-white outline-none" />
+                        </div>
+                      </div>
+                      <div>
+                        <label className="block font-medium text-slate-300 mb-1">Email ID (For Backup PDF &amp; Receipt)</label>
+                        <input type="email" required value={buyerEmail} onChange={(e) => setBuyerEmail(e.target.value)} placeholder="you@example.com" className="w-full bg-[#0B0D13] border border-[#262C3F] rounded-lg px-3.5 py-2.5 text-white outline-none" />
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="flex gap-2">
+                        <input type="text" value={couponInput} onChange={(e) => setCouponInput(e.target.value)} placeholder="Have a creator code? (e.g. REEL50)" className="flex-1 bg-[#0B0D13] border border-[#262C3F] rounded-lg px-3 py-2 text-white font-mono uppercase outline-none" />
+                        <button type="button" onClick={() => handleApplyCoupon()} className="bg-white/5 hover:bg-white/10 text-white font-medium px-4 py-2 rounded-lg border border-white/10">
+                          Apply
+                        </button>
+                      </div>
+                      {appliedCoupon && <p className="text-[11px] text-emerald-400 mt-1">Discount applied: -₹{appliedCoupon.discount} ({appliedCoupon.code})</p>}
+                      {couponError && <p className="text-[11px] text-rose-400 mt-1">{couponError}</p>}
+                    </div>
+
+                    <p className="text-[11px] text-slate-400 leading-relaxed bg-[#0B0D13] p-3 rounded-lg border border-[#1F2433]">
+                      Your personal PDF copy will be licensed to <span className="text-slate-200 font-medium">{buyerName || 'your name'} {buyerPhone ? `(+91-${buyerPhone})` : ''}</span> and unlocked on this screen immediately after payment.
+                    </p>
+
+                    {formError && <div className="bg-rose-500/10 border border-rose-500/30 text-rose-300 p-3 rounded-lg">{formError}</div>}
+
+                    <button type="submit" className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm py-3.5 rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+                      <span>Pay ₹{checkoutTotals.total} &amp; Download PDF</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </form>
+                )}
+
+                {paymentStep === 'processing' && (
+                  <div className="p-10 text-center space-y-3">
+                    <RefreshCw className="w-8 h-8 text-indigo-400 animate-spin mx-auto" />
+                    <h3 className="text-base font-bold text-white">Confirming UPI Payment...</h3>
+                    <p className="text-xs text-slate-400">Preparing your licensed PDF book for {buyerName}</p>
+                  </div>
+                )}
+
+                {paymentStep === 'success' && (
+                  <div className="p-6 space-y-4 text-xs">
+                    <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-4 text-center space-y-1.5">
+                      <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto" />
+                      <h3 className="text-base font-bold text-white">Thank You, {buyerName}!</h3>
+                      <p className="text-slate-300">Your copy of <strong>{checkoutBook.title}</strong> is unlocked below.</p>
+                    </div>
+
+                    <div className="space-y-2.5">
+                      <button
+                        onClick={() =>
+                          triggerRealPdfPackDownload({
+                            ...checkoutBook,
+                            stampedBuyerName: buyerName,
+                            stampedBuyerPhone: `+91-${buyerPhone}`,
+                            stampedBuyerEmail: buyerEmail
+                          })
+                        }
+                        className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm py-3.5 rounded-xl flex items-center justify-center gap-2 transition"
+                      >
+                        <Download className="w-4 h-4" />
+                        <span>Download PDF Book Now</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const bookForReader = {
+                            ...checkoutBook,
+                            stampedBuyerName: buyerName || 'VERIFIED BUYER',
+                            stampedBuyerPhone: `+91-${buyerPhone || '9876543210'}`,
+                            stampedBuyerEmail: buyerEmail || 'buyer@promptbazar.in'
+                          };
+                          setCheckoutBook(null);
+                          setWebReaderBook(bookForReader);
+                        }}
+                        className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs py-3 rounded-xl flex items-center justify-center gap-2 transition"
+                      >
+                        <BookOpen className="w-4 h-4" />
+                        <span>Open Online Prompt Reader (1-Tap Copy)</span>
+                      </button>
+
+                      <div className="flex gap-2 pt-1">
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setStampedPdfPreviewModal({
+                              book: checkoutBook,
+                              buyerName: buyerName.toUpperCase(),
+                              buyerPhone: `+91-${buyerPhone}`,
+                              buyerEmail,
+                              drmId: `DRM-${Math.floor(10000 + Math.random() * 90000)}`
+                            })
+                          }
+                          className="flex-1 bg-white/5 hover:bg-white/10 text-slate-300 font-medium py-2.5 rounded-xl"
+                        >
+                          View License Stamp
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            triggerSplitInvoicePdfDownload(
+                              splitTransactions[0] || {
+                                id: 'TXN-9901',
+                                pdfTitle: checkoutBook.title,
+                                creatorHandle: `@${checkoutBook.creatorHandle}`,
+                                buyerName,
+                                buyerPhone: `+91-${buyerPhone}`,
+                                buyerEmail,
+                                amount: checkoutTotals.total
+                              }
+                            )
+                          }
+                          className="flex-1 bg-white/5 hover:bg-white/10 text-slate-300 font-medium py-2.5 rounded-xl flex items-center justify-center gap-1"
+                        >
+                          <FileText className="w-3.5 h-3.5" />
+                          <span>Tax Receipt</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* MODAL: CREATOR BIO-LINK STOREFRONT */}
+          {activeCreatorBioModal && (
+            <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+              <div className="bg-[#12151E] border border-[#262C3F] rounded-3xl max-w-md w-full p-6 space-y-5 shadow-2xl">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-mono text-slate-400 bg-[#0B0D13] border border-[#1F2433] px-2.5 py-1 rounded-md">
+                    promptbazar.in/@{activeCreatorBioModal.handle}
+                  </span>
+                  <button onClick={() => setActiveCreatorBioModal(null)} className="p-1.5 rounded-lg bg-white/5 text-slate-400 hover:text-white">
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+
+                <div className="text-center space-y-2">
+                  <img src={activeCreatorBioModal.avatarUrl} onError={handleImgError} alt={activeCreatorBioModal.name} className="w-16 h-16 rounded-full object-cover border-2 border-indigo-500 mx-auto" />
+                  <h3 className="text-lg font-bold text-white flex items-center justify-center gap-1.5">
+                    <span>{activeCreatorBioModal.name}</span>
+                    <BadgeCheck className="w-4 h-4 text-indigo-400" />
+                  </h3>
+                  <p className="text-xs text-slate-400">{activeCreatorBioModal.bio}</p>
+                </div>
+
+                <div className="space-y-2.5 pt-2 border-t border-[#1F2433]">
+                  <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Published Prompt Books</div>
+                  {productsList
+                    .filter((p) => p.creatorHandle === activeCreatorBioModal.handle || p.id === 'mega-bundle-pdf')
+                    .map((book) => (
+                      <div key={book.id} className="bg-[#0B0D13] border border-[#1F2433] rounded-xl p-3 flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-3 min-w-0">
+                          <img src={book.coverImage} onError={handleImgError} alt={book.title} className="w-10 h-12 rounded object-cover shrink-0" />
+                          <div className="min-w-0">
+                            <div className="text-xs font-semibold text-white truncate">{book.title}</div>
+                            <div className="text-xs text-emerald-400 font-bold mt-0.5">
+                              ₹{book.price} <span className="text-slate-500 line-through font-normal">₹{book.mrp}</span>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          onClick={() => {
+                            setActiveCreatorBioModal(null);
+                            handleOpenCheckout(book);
+                          }}
+                          className="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3.5 py-2 rounded-lg shrink-0"
+                        >
+                          Buy
+                        </button>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* MODAL: ONLINE PROMPT READER */}
+          {webReaderBook && (
+            <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+              <div className="bg-[#12151E] border border-[#262C3F] rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden shadow-2xl">
+                <div className="px-6 py-4 bg-[#0B0D13] border-b border-[#1F2433] flex items-center justify-between gap-4">
+                  <div>
+                    <span className="text-[10px] font-mono uppercase text-emerald-400">
+                      Online Prompt Reader • Licensed to {webReaderBook.stampedBuyerName || buyerName || 'Verified Buyer'}
+                    </span>
+                    <h3 className="font-bold text-white text-sm sm:text-base mt-0.5">{webReaderBook.title}</h3>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button onClick={() => triggerRealPdfPackDownload(webReaderBook)} className="bg-white/5 hover:bg-white/10 text-slate-200 text-xs font-medium px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+                      <Download className="w-3.5 h-3.5" />
+                      <span>Download .PDF</span>
+                    </button>
+                    <button onClick={() => setWebReaderBook(null)} className="p-1.5 rounded-lg bg-white/5 text-slate-400 hover:text-white">
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="p-6 overflow-y-auto space-y-4 flex-1">
+                  {(webReaderBook.samplePrompts || []).map((p, i) => (
+                    <div key={p.sceneTitle} className="bg-[#0B0D13] border border-[#1F2433] rounded-xl p-4 space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold text-white">0{i + 1}. {p.sceneTitle}</span>
+                        <button
+                          onClick={() => copyToClipboard(`${p.imagePrompt}\n\n${p.videoMotionPrompt}`, 'Full scene prompt copied!')}
+                          className="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium px-3 py-1 rounded-lg flex items-center gap-1.5"
+                        >
+                          <Copy className="w-3 h-3" />
+                          <span>Copy Prompt</span>
+                        </button>
+                      </div>
+                      <p className="font-mono text-xs text-slate-300 leading-relaxed">{p.imagePrompt}</p>
+                      <p className="font-mono text-xs text-emerald-400 leading-relaxed pt-2 border-t border-white/5">{p.videoMotionPrompt}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* MODAL: STAMPED PAGE PREVIEW */}
+          {stampedPdfPreviewModal && (
+            <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+              <div className="bg-[#12151E] border border-[#262C3F] rounded-2xl max-w-xl w-full overflow-hidden shadow-2xl">
+                <div className="px-5 py-3.5 bg-[#0B0D13] border-b border-[#1F2433] flex items-center justify-between">
+                  <span className="text-xs font-bold text-white">Buyer License Watermark Preview</span>
+                  <button onClick={() => setStampedPdfPreviewModal(null)} className="text-slate-400 hover:text-white">
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+                <div className="p-5">
+                  <div className="bg-white text-slate-900 rounded-lg p-5 space-y-4">
+                    <div className="bg-slate-900 text-white px-3 py-2 rounded text-[10px] font-mono flex justify-between">
+                      <span>LICENSED TO: {stampedPdfPreviewModal.buyerName} ({stampedPdfPreviewModal.buyerPhone})</span>
+                      <span>{stampedPdfPreviewModal.drmId}</span>
+                    </div>
+                    <h4 className="font-bold text-sm">{stampedPdfPreviewModal.book.title}</h4>
+                    <p className="font-mono text-[11px] text-slate-700 bg-slate-100 p-3 rounded">
+                      {stampedPdfPreviewModal.book.samplePrompts?.[0]?.imagePrompt}
+                    </p>
+                    <div className="border-t border-slate-200 pt-2 text-[10px] font-mono text-slate-500 flex justify-between">
+                      <span>PromptBazar.in Verified Edition</span>
+                      <span>Licensed to {stampedPdfPreviewModal.buyerPhone}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* MODAL: TAX INVOICE VIEWER */}
+          {invoiceModalTx && (
+            <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+              <div className="bg-[#12151E] border border-[#262C3F] rounded-2xl max-w-lg w-full p-6 space-y-4 text-xs">
+                <div className="flex items-center justify-between border-b border-[#1F2433] pb-3">
+                  <h3 className="font-bold text-white text-sm">Payment Receipt ({invoiceModalTx.id})</h3>
+                  <button onClick={() => setInvoiceModalTx(null)} className="text-slate-400 hover:text-white">
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+                <div className="bg-[#0B0D13] border border-[#1F2433] rounded-xl p-4 space-y-2">
+                  <div className="flex justify-between"><span className="text-slate-400">Book</span><span className="text-white font-medium">{invoiceModalTx.pdfTitle}</span></div>
+                  <div className="flex justify-between"><span className="text-slate-400">Customer</span><span className="text-white font-mono">{invoiceModalTx.buyerName} ({invoiceModalTx.buyerPhone})</span></div>
+                  <div className="flex justify-between"><span className="text-slate-400">Amount Paid</span><span className="text-white font-bold">₹{invoiceModalTx.amount}</span></div>
+                  <div className="border-t border-[#1F2433] pt-2 flex justify-between text-emerald-400">
+                    <span>Creator 92% Share ({invoiceModalTx.creatorHandle})</span>
+                    <span>₹{invoiceModalTx.creatorPayout92}</span>
+                  </div>
+                  <div className="flex justify-between text-indigo-400"><span>Platform 5% Fee</span><span>₹{invoiceModalTx.adminCommission5}</span></div>
+                  <div className="flex justify-between text-slate-500"><span>Gateway 3% Fee</span><span>₹{invoiceModalTx.pgFee3}</span></div>
+                </div>
+                <button onClick={() => triggerSplitInvoicePdfDownload(invoiceModalTx)} className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2.5 rounded-xl">
+                  Download Official Receipt (.PDF)
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* MODAL: MY PURCHASED BOOKS */}
+          {showPurchasesModal && (
+            <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+              <div className="bg-[#12151E] border border-[#262C3F] rounded-2xl max-w-lg w-full p-6 space-y-4">
+                <div className="flex items-center justify-between border-b border-[#1F2433] pb-3">
+                  <h3 className="font-bold text-white text-sm">My Purchased Books</h3>
+                  <button onClick={() => setShowPurchasesModal(false)} className="text-slate-400 hover:text-white">
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+                {purchasedItems.length === 0 ? (
+                  <p className="text-xs text-slate-400 text-center py-8">You haven’t purchased any prompt books in this session yet.</p>
+                ) : (
+                  <div className="space-y-2.5">
+                    {purchasedItems.map((item) => (
+                      <div key={item.id} className="bg-[#0B0D13] border border-[#1F2433] rounded-xl p-3.5 flex items-center justify-between gap-3">
+                        <div className="min-w-0">
+                          <div className="text-xs font-bold text-white truncate">{item.title}</div>
+                          <div className="text-[11px] text-slate-400">Licensed to {item.stampedBuyerName} ({item.stampedBuyerPhone})</div>
+                        </div>
+                        <div className="flex gap-1.5 shrink-0">
+                          <button
+                            onClick={() => {
+                              setShowPurchasesModal(false);
+                              setWebReaderBook(item);
+                            }}
+                            className="bg-indigo-600 text-white text-xs font-medium px-3 py-1.5 rounded-lg"
+                          >
+                            Read
+                          </button>
+                          <button onClick={() => triggerRealPdfPackDownload(item)} className="bg-white/5 text-slate-200 text-xs font-medium px-3 py-1.5 rounded-lg">
+                            .PDF
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* MODAL: STAFF LOGIN (PIN 2026) */}
+          {showAdminLoginModal && (
+            <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+              <div className="bg-[#12151E] border border-[#262C3F] rounded-2xl max-w-sm w-full p-6 space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-bold text-white text-sm">Staff Admin Login</h3>
+                  <button onClick={() => setShowAdminLoginModal(false)} className="text-slate-400 hover:text-white">
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+                <p className="text-xs text-slate-400">
+                  Enter your owner PIN to view platform commissions and approve pending books. (Default: <code className="text-indigo-400">{adminSecretPin}</code>)
+                </p>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    if (adminPinInput.trim() === adminSecretPin) {
+                      setIsAdminAuthenticated(true);
+                      setShowAdminLoginModal(false);
+                      setActiveView('admin-panel');
+                      showToast('Staff Admin unlocked');
+                    } else {
+                      setAdminAuthError('Incorrect PIN. Default is ' + adminSecretPin);
+                    }
+                  }}
+                  className="space-y-3"
+                >
+                  <input type="password" autoFocus required value={adminPinInput} onChange={(e) => setAdminPinInput(e.target.value)} placeholder="Enter PIN" className="w-full bg-[#0B0D13] border border-[#262C3F] rounded-lg px-3.5 py-2.5 text-center font-mono text-white outline-none" />
+                  {adminAuthError && <p className="text-xs text-rose-400 text-center">{adminAuthError}</p>}
+                  <button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs py-2.5 rounded-lg">
+                    Unlock Admin
+                  </button>
+                </form>
+              </div>
+            </div>
+          )}
+
+          {/* MODAL: LEGAL & COMPLIANCE */}
+          {legalModal && (
+            <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+              <div className="bg-[#12151E] border border-[#262C3F] rounded-2xl max-w-xl w-full p-6 space-y-4">
+                <div className="flex items-center justify-between border-b border-[#1F2433] pb-3">
+                  <h3 className="font-bold text-white text-sm">
+                    {legalModal === 'privacy' && 'Privacy Policy'}
+                    {legalModal === 'terms' && 'Terms & Disclaimer'}
+                    {legalModal === 'copyright' && 'Copyright & Anti-Piracy Notice'}
+                    {legalModal === 'contact' && 'Customer Support & Office'}
+                  </h3>
+                  <button onClick={() => setLegalModal(null)} className="text-slate-400 hover:text-white">
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+                <div className="text-xs text-slate-300 space-y-3 leading-relaxed">
+                  {legalModal === 'privacy' && (
+                    <p>We collect your Name, Email, and 10-digit WhatsApp Mobile Number solely to deliver your digital PDF book and stamp your personal buyer license. All payments are processed through secure RBI-compliant UPI and card gateways.</p>
+                  )}
+                  {legalModal === 'terms' && (
+                    <p>PromptBazar is an independent digital bookstore for AI video creators. Creators receive 92% of net sales, PromptBazar retains a 5% platform fee, and 3% covers payment gateway processing charges.</p>
+                  )}
+                  {legalModal === 'copyright' && (
+                    <p>Every PDF downloaded on PromptBazar is watermarked with the buyer’s Full Name and +91 Mobile Number. Unauthorized sharing on Telegram or WhatsApp groups is strictly prohibited under the Indian Copyright Act, 1957.</p>
+                  )}
+                  {legalModal === 'contact' && (
+                    <div className="space-y-1">
+                      <div className="font-semibold text-white">{businessLegalName}</div>
+                      <div>{businessAddress}</div>
+                      <div>Email: {supportEmail}</div>
+                      <div>WhatsApp Support: +{supportWhatsapp}</div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
